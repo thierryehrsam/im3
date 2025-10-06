@@ -16,36 +16,29 @@
    ============================================================================ */
 
 // Bindet das Skript extract.php für Rohdaten ein und speichere es in $data
-$data = include('extract.php');
-print_r($data);
+$data = include('extract_weather.php'); // lädt Rohdaten aus extract.php
 
-// Definiert eine Zuordnung von Koordinaten zu Stadtnamen
-$locationsMap = [
-    '46.94,7.44' => 'Bern',
-    '46.84,9.52' => 'Chur',
-    '47.36,8.559999' => 'Zürich',
-];
-
-// Funktion, um Fahrenheit in Celsius umzurechnen
-
-// Neue Funktion zur Bestimmung der Wetterbedingung
-
-
-
-// Initialisiert ein Array, um die transformierten Daten zu speichern
-$transformedData = [];
-
-// Transformiert und fügt die notwendigen Informationen hinzu
-foreach ($data as $location) {
-    // Bestimmt den Stadtnamen anhand von Breitengrad und Längengrad
-
-    // Wandelt die Temperatur in Celsius um und rundet sie
-
-    // Bestimmt die Wetterbedingung
-
-    // Konstruiert die neue Struktur mit allen angegebenen Feldern, einschließlich des neuen 'condition'-Feldes
+if (!$data || !isset($data['daily'])) {
+    die("Fehler: Keine gültigen Wetterdaten gefunden.");
 }
 
-// Kodiert die transformierten Daten in JSON
+$daily = $data['daily'];
 
-// Gibt die JSON-Daten zurück, anstatt sie auszugeben
+// --- Transformation der Daten ---
+$transformedData = [];
+
+foreach ($daily['time'] as $i => $datum) {
+    $tempMax = round($daily['temperature_2m_max'][$i], 1);
+    $tempMin = round($daily['temperature_2m_min'][$i], 1);
+
+    $transformedData[] = [
+        'temperatur_min'     => $tempMin,
+        'temperatur_max'     => $tempMax,
+        'bewoelkung'         => (int)$daily['cloud_cover_mean'][$i],
+        'niederschlagsmenge' => (float)$daily['precipitation_sum'][$i],
+        'schneefall'         => (float)$daily['snowfall_sum'][$i],
+        'datum'              => $datum
+    ];
+}
+
+return $transformedData;
