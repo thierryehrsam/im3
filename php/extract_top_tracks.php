@@ -38,3 +38,4 @@ function fetchTopTracks($apiKey)
 
 // Gibt die Daten zurück, wenn dieses Skript eingebunden ist
 return fetchTopTracks($lastFmApiKey);
+?>

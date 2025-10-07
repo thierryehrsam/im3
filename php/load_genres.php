@@ -14,37 +14,27 @@
    ============================================================================ */
 
 
-// Transformations-Skript  als 'transform.php' einbinden
-$data = include('transform_weather.php');
-
+$data = include('transform_genres.php');
 // Binde die Datenbankkonfiguration ein
 require_once 'config.php';
 
 try {
-    // Erstellt eine neue PDO-Instanz mit der Konfiguration aus config.php
     $pdo = new PDO($dsn, $username, $password, $options);
 
-    // SQL-Query mit Platzhaltern für das Einfügen von Daten
-    $sql = "INSERT INTO Wetter 
-    (temperatur_min, temperatur_max, bewoelkung, niederschlagsmenge, schneefall, datum)
-    VALUES (:temperatur_min, :temperatur_max, :bewoelkung, :niederschlagsmenge, :schneefall, :datum)";
+    // SQL mit Platzhaltern (datum wird per CURDATE() gesetzt)
+    $sql = "INSERT INTO Genre_Chart (genre_id, datum)
+            VALUES (:genre_id, CURDATE())";
 
-    //Bereitet SQL vor
     $stmt = $pdo->prepare($sql);
 
-    // Fügt jedes Element im Array in die Datenbank ein
-    foreach ($data as $row) {
+    // Jedes Genre in die DB einfügen
+    foreach ($data as $genreName) {
         $stmt->execute([
-            ':temperatur_min'     => $row['temperatur_min'],
-            ':temperatur_max'     => $row['temperatur_max'],
-            ':bewoelkung'         => $row['bewoelkung'],
-            ':niederschlagsmenge' => $row['niederschlagsmenge'],
-            ':schneefall'         => $row['schneefall'],
-            ':datum'              => $row['datum']
+            ':genre_id' => $genreName
         ]);
     }
 
-    echo "Daten erfolgreich in die Tabelle 'Wetter' eingefügt.";
+    echo "Daten erfolgreich eingefügt.";
 
 } catch (PDOException $e) {
     die("Verbindung zur Datenbank konnte nicht hergestellt werden: " . $e->getMessage());

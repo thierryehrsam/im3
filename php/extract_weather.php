@@ -37,3 +37,4 @@ function fetchWeatherData($latitude, $longitude)
 
 // Gibt die Daten zurück, wenn dieses Skript eingebunden ist
 return fetchWeatherData("46.9481", "7.4474");
+?>

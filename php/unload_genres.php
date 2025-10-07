@@ -16,21 +16,17 @@
 
 require_once 'config.php'; // Stellen Sie sicher, dass dies auf deine tatsächliche Konfigurationsdatei verweist
 
-header('Content-Type: application/json');
-
 try {
    $pdo = new PDO($dsn, $username, $password, $options);
 
-   $sql = "SELECT * FROM `Wetter`";
+   $sql = "SELECT * FROM `Genre`";
 
    $stmt = $pdo->prepare($sql);
    $stmt->execute();
 
    $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
-   $dataJson = json_encode($data);
 
-   echo $dataJson;
-
+   return $data;
 } catch (PDOException $e) {
    echo json_encode(['error' => $e->getMessage()]);
 }

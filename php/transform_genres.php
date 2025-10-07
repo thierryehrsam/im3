@@ -15,14 +15,43 @@
   10) Fehlerfälle als Exception nach oben weiterreichen (kein HTML/echo).
    ============================================================================ */
 
-// Bindet das Skript extract.php für Rohdaten ein und speichere es in $data
-$topArtists = include('transform_top_artists.php');
+$topArtists = include('extract_top_tags.php'); // Array mit Artists + ihren Top-Tags
+$genresDb = include('unload_genres.php');      // Array mit verfügbaren Genres (Strings)
 
 // --- Transformation der Daten ---
 $genres = [];
 
-foreach ($topArtists as $artist) {
-    $topTags = include('extract_top_tags');
+foreach ($topArtists as $artistData) {
+    $foundGenre = 'Sonstige'; // Default-Wert
+
+    // Prüfen, ob toptags->tag existiert
+    if (
+        !isset($artistData['toptags']) ||
+        !isset($artistData['toptags']['tag']) ||
+        !is_array($artistData['toptags']['tag'])
+    ) {
+        $genres[] = $foundGenre;
+        continue;
+    }
+
+    // Jetzt korrekt auf die Tags zugreifen
+    foreach ($artistData['toptags']['tag'] as $tag) {
+        if (!isset($tag['name'])) continue;
+        $tagName = $tag['name'];
+        $tagPrefix = substr($tagName, 0, 3);
+
+        foreach ($genresDb as $dbGenre) {
+            $dbPrefix = substr(strtolower($dbGenre['name_id']), 0, 3);
+
+            if ($tagPrefix === $dbPrefix) {
+                $foundGenre = $dbGenre['name_id'];
+                break 2; // Match gefunden → zum nächsten Artist
+            }
+        }
+    }
+
+    $genres[] = $foundGenre;
 }
 
 return $genres;
+?>

@@ -15,6 +15,8 @@
    ============================================================================ */
 require_once 'config.php';
 
+$artists = include('transform_top_artists.php');
+
 function fetchTopTags($mbid, $apiKey)
 {
     $url = "http://ws.audioscrobbler.com/2.0/?method=artist.gettoptags&mbid=$mbid&api_key=$apiKey&format=json";
@@ -36,5 +38,11 @@ function fetchTopTags($mbid, $apiKey)
     return $data;
 }
 
-// Gibt die Daten zurück, wenn dieses Skript eingebunden ist
-return fetchTopTags($mbid, $lastFmApiKey);
+$topTags = [];
+
+foreach($artists as $artist) {
+    $topTags[] = fetchTopTags($artist, $lastFmApiKey);
+}
+
+return $topTags;
+?>
