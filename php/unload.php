@@ -14,6 +14,8 @@
    ============================================================================ */
 
 
-require_once '../config.php'; // Stellen Sie sicher, dass dies auf Ihre tatsächliche Konfigurationsdatei verweist
+require_once 'config.php'; // Stellen Sie sicher, dass dies auf deine tatsächliche Konfigurationsdatei verweist
+
+$pdo = new PDO()
 
 header('Content-Type: application/json');

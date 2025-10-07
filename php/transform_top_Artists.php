@@ -25,8 +25,8 @@ $artists = [];
 
 // Nur die ersten 50 Tracks berücksichtigen
 foreach (array_slice($topTracks, 0, 50) as $track) {
-    if (isset($track['artist']['name'])) {
-        $artists[] = $track['artist']['name'];
+    if (isset($track['artist']['mbid'])) {
+        $artists[] = $track['artist']['mbid'];
     }
 }
 
