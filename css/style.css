@@ -1,0 +1,19 @@
+:root {
+  --color-dark: #340043;
+  --color-light: #FF19E7;
+  --color-third: #17E1BC;
+  --color-green: #5E9148;
+  --color-red: #9A1010;
+  --color-grey: #887A7A;
+  --color-yellow: #F2F68B;
+  --color-pink: #D376D5;
+  --color-lila: #8D6DFF;
+  --color-background-grey: #CCBFD0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--color-dark);
+  margin: 0;
+  padding: 0;
+}
