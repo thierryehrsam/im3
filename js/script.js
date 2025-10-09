@@ -52,8 +52,8 @@ const data = {
     datasets: [
         {
             label: 'Temperatur Min',
-            data: temper[aturenMin,
-                borderColor: 'rgb(255, 99, 132)',
+            data: temperaturenMin,
+            borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)'
         },
         {
