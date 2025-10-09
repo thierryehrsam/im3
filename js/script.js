@@ -4,89 +4,61 @@ const url = '../php/unload.php'; // Pfad zu deiner PHP-Datei
 
 let genresEntwicklung = [
     {
-        name: "Country", color: "#0bb882", dates:
+        name: "Country", color: "#0bb882", weather_data:
             [
-                { datum: "2025-10-08", anzahl: 47 },
-                { datum: "2025-10-09", anzahl: 21 },
-                { datum: "2025-10-10", anzahl: 54 },
-                { datum: "2025-10-11", anzahl: 23 }
+                { datum: "2025-10-08", anzahl: 47, wetter_code: "bewoelkt", temperatur_min: 10.2, temperatur_max: 14.5 },
+                { datum: "2025-10-09", anzahl: 21, wetter_code: "regen", temperatur_min: 8.9, temperatur_max: 13.2 },
+                { datum: "2025-10-10", anzahl: 54, wetter_code: "sonnig", temperatur_min: 7.6, temperatur_max: 8.8 },
+                { datum: "2025-10-11", anzahl: 23, wetter_code: "sonnig", temperatur_min: 10.5, temperatur_max: 14.3 }
             ]
     },
     {
-        name: "Rock", color: "#ce97ab", dates:
+        name: "Rock", color: "#ce97ab", weather_data:
             [
-                { datum: "2025-10-08", anzahl: 87 },
-                { datum: "2025-10-09", anzahl: 33 },
-                { datum: "2025-10-10", anzahl: 0 },
-                { datum: "2025-10-11", anzahl: 17 }
+                { datum: "2025-10-08", anzahl: 87, wetter_code: "bewoelkt", temperatur_min: 10.2, temperatur_max: 14.5 },
+                { datum: "2025-10-09", anzahl: 33, wetter_code: "regen", temperatur_min: 8.9, temperatur_max: 13.2 },
+                { datum: "2025-10-10", anzahl: 0, wetter_code: "sonnig", temperatur_min: 7.6, temperatur_max: 8.8 },
+                { datum: "2025-10-11", anzahl: 17, wetter_code: "sonnig", temperatur_min: 10.5, temperatur_max: 14.3 }
             ]
     },
     {
-        name: "Pop", color: "#7262ad", dates:
+        name: "Pop", color: "#7262ad", weather_data:
             [
-                { datum: "2025-10-08", anzahl: 61 },
-                { datum: "2025-10-09", anzahl: 24 },
-                { datum: "2025-10-10", anzahl: 8 },
-                { datum: "2025-10-11", anzahl: 32 }
+                { datum: "2025-10-08", anzahl: 61, wetter_code: "bewoelkt", temperatur_min: 10.2, temperatur_max: 14.5 },
+                { datum: "2025-10-09", anzahl: 24, wetter_code: "regen", temperatur_min: 8.9, temperatur_max: 13.2 },
+                { datum: "2025-10-10", anzahl: 8, wetter_code: "sonnig", temperatur_min: 7.6, temperatur_max: 8.8 },
+                { datum: "2025-10-11", anzahl: 32, wetter_code: "sonnig", temperatur_min: 10.5, temperatur_max: 14.3 }
             ]
     }];
 
 let weatherLastWeek = [
     {
         datum: "2025-09-29",
-        temperatur_min: 6.7,
-        temperatur_max: 14.8,
-        bewoelkung: 84,
-        niederschlagsmenge: 0.4,
-        schneefall: 0
+        wetter_code: "sonnig"
     },
     {
         datum: "2025-09-30",
-        temperatur_min: 5.4,
-        temperatur_max: 10.1,
-        bewoelkung: 99,
-        niederschlagsmenge: 0.0,
-        schneefall: 0
+        wetter_code: "bewoelkt"
     },
     {
         datum: "2025-10-01",
-        temperatur_min: 8.1,
-        temperatur_max: 17.2,
-        bewoelkung: 24,
-        niederschlagsmenge: 0.0,
-        schneefall: 0
+        wetter_code: "sonnig"
     },
     {
         datum: "2025-10-02",
-        temperatur_min: 7.5,
-        temperatur_max: 16.9,
-        bewoelkung: 0,
-        niederschlagsmenge: 0.0,
-        schneefall: 0
+        wetter_code: "bewoelkt"
     },
     {
         datum: "2025-10-03",
-        temperatur_min: 4.5,
-        temperatur_max: 12.3,
-        bewoelkung: 90,
-        niederschlagsmenge: 2.8,
-        schneefall: 0
+        wetter_code: "regen"
     },
     {
         datum: "2025-10-04",
-        temperatur_min: 4.8,
-        temperatur_max: 11.8,
-        bewoelkung: 92,
-        niederschlagsmenge: 4.5,
-        schneefall: 0
+        wetter_code: "regen"
     },
     {
         datum: "2025-10-05",
-        temperatur_min: 0.1,
-        temperatur_max: 2.3,
-        bewoelkung: 100,
-        niederschlagsmenge: 0.1,
-        schneefall: 2.5
+        wetter_code: "schnee"
     }
 ];
 
@@ -94,93 +66,108 @@ let topGenres = ["Country", "Rock", "Pop", "Hip Hop", "Indie"];
 
 let genresWeather = [
     {
-        genre: "Country",
-        weatherData: [
+        wetter_code: "sonnig",
+        top_genres: [
             {
-                datum: "2025-10-02",
-                temperatur_min: 7.5,
-                temperatur_max: 16.9,
-                bewoelkung: 0,
-                niederschlagsmenge: 0.0,
-                schneefall: 0
+                name: "Country",
+                anzahl: 47
             },
             {
-                datum: "2025-09-30",
-                temperatur_min: 5.4,
-                temperatur_max: 10.1,
-                bewoelkung: 99,
-                niederschlagsmenge: 0.0,
-                schneefall: 0
+                name: "Pop",
+                anzahl: 35
             },
             {
-                datum: "2025-10-01",
-                temperatur_min: 8.1,
-                temperatur_max: 17.2,
-                bewoelkung: 24,
-                niederschlagsmenge: 0.0,
-                schneefall: 0
+                name: "Rock",
+                anzahl: 12
+            },
+            {
+                name: "Hip Hop",
+                anzahl: 10
+            },
+            {
+                name: "Indie",
+                anzahl: 3
             }
         ]
     },
     {
-        genre: "Rock",
-        weatherData: [
+        wetter_code: "bewoelkt",
+        top_genres: [
             {
-                datum: "2025-10-03",
-                temperatur_min: 4.5,
-                temperatur_max: 12.3,
-                bewoelkung: 90,
-                niederschlagsmenge: 2.8,
-                schneefall: 0
+                name: "Rock",
+                anzahl: 61
             },
             {
-                datum: "2025-10-04",
-                temperatur_min: 4.8,
-                temperatur_max: 11.8,
-                bewoelkung: 92,
-                niederschlagsmenge: 4.5,
-                schneefall: 0
+                name: "Rap",
+                anzahl: 50
             },
             {
-                datum: "2025-10-05",
-                temperatur_min: 0.1,
-                temperatur_max: 2.3,
-                bewoelkung: 100,
-                niederschlagsmenge: 0.1,
-                schneefall: 2.5
+                name: "Jazz",
+                anzahl: 42
+            },
+            {
+                name: "Pop",
+                anzahl: 40
+            },
+            {
+                name: "Schlager",
+                anzahl: 13
             }
         ]
     },
     {
-        genre: "Pop",
-        weatherData: [
+        wetter_code: "regen",
+        top_genres: [
             {
-                datum: "2025-10-03",
-                temperatur_min: 4.5,
-                temperatur_max: 12.3,
-                bewoelkung: 90,
-                niederschlagsmenge: 2.8,
-                schneefall: 0
+                name: "Jazz",
+                anzahl: 62
             },
             {
-                datum: "2025-10-04",
-                temperatur_min: 4.8,
-                temperatur_max: 11.8,
-                bewoelkung: 92,
-                niederschlagsmenge: 4.5,
-                schneefall: 0
+                name: "Reggae",
+                anzahl: 55
             },
             {
-                datum: "2025-10-01",
-                temperatur_min: 8.1,
-                temperatur_max: 17.2,
-                bewoelkung: 24,
-                niederschlagsmenge: 0.0,
-                schneefall: 0
+                name: "Latino",
+                anzahl: 43
+            },
+            {
+                name: "Pop",
+                anzahl: 31
+            },
+            {
+                name: "Rock",
+                anzahl: 28
+            }
+        ]
+    },
+    {
+        wetter_code: "schnee",
+        top_genres: [
+            {
+                name: "Hip Hop",
+                anzahl: 48
+            },
+            {
+                name: "Rap",
+                anzahl: 45
+            },
+            {
+                name: "Pop",
+                anzahl: 30
+            },
+            {
+                name: "Rock",
+                anzahl: 23
+            },
+            {
+                name: "Alternative",
+                anzahl: 15
             }
         ]
     }
 ];
+
+let datumsWert = ["2025-09-29", "2025-09-30", "2025-10-01"];
 
 async function loadWeatherData() {
     fetch(url)
