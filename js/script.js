@@ -1,73 +1,72 @@
-import Chart from 'chart.js/auto';
 
 const url = '../php/unload.php'; // Pfad zu deiner PHP-Datei
-
-// Array, in dem du die Daten speichern willst
-let wetterDaten = [];
-
-fetch(url)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Fehler beim Laden der Daten");
-        }
-        return response.json(); // Antwort in JS-Objekte umwandeln
-    })
-    .then(data => {
-        wetterDaten = data; // Daten im Array speichern
-        console.log("Geladene Wetterdaten:", wetterDaten);
-
-        // Beispiel: Zugriff auf einzelne Werte
-        wetterDaten.forEach(eintrag => {
-            console.log(`${eintrag.datum}: ${eintrag.temperatur_min}°C / ${eintrag.temperatur_max}°C`);
-        });
-    })
-    .catch(error => {
-        console.error("Fehler:", error);
-    });
-
-
-const actions = [
-    {
-        name: 'Randomize',
-        handler(chart) {
-            chart.data.datasets.forEach(dataset => {
-                dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });
-            });
-            chart.update();
-        }
-    },
-];
-
 const DATA_COUNT = 7;
 const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+// Array, in dem du die Daten speichern willst
 
-const labels = Utils.months({ count: 7 });
+async function loadWeatherData() {
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Fehler beim Laden der Daten");
+            }
+            return response.json(); // Antwort in JS-Objekte umwandeln
+        })
+        .then(data => {
+            return data; // Daten im Array speichern
+        })
+        .catch(error => {
+            console.error("Fehler:", error);
+        });
+
+    try {
+        const response = await fetch(url);
+        const answer = await response.json();
+        return answer;
+    } catch (error) {
+        console.error(error);
+        return false;
+    }
+}
+
+let wetterDaten = await loadWeatherData();
+let temperaturenMin = [];
+let temperaturenMax = [];
+let tage = [];
+
+wetterDaten.forEach(data => {
+    temperaturenMin.push(data.temperatur_min);
+    temperaturenMax.push(data.temperatur_max);
+    tage.push(data.datum);
+
+});
+
+console.log(temperaturenMin);
+console.log(temperaturenMax);
+console.log(tage);
+
+
+const labels = tage;
 const data = {
     labels: labels,
     datasets: [
         {
-            label: 'Fully Rounded',
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.red,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
-            borderWidth: 2,
-            borderRadius: Number.MAX_VALUE,
-            borderSkipped: false,
+            label: 'Temperatur Min',
+            data: temper[aturenMin,
+                borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: 'rgba(255, 99, 132, 0.5)'
         },
         {
-            label: 'Small Radius',
-            data: Utils.numbers(NUMBER_CFG),
-            borderColor: Utils.CHART_COLORS.blue,
-            backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
-            borderWidth: 2,
-            borderRadius: 5,
-            borderSkipped: false,
+            label: 'Temperatur Max',
+            data: temperaturenMax,
+            borderColor: 'rgb(54, 162, 235)',
+            backgroundColor: 'rgba(54, 162, 235, 0.5)'
         }
     ]
 };
 
 const config = {
-    type: 'bar',
+    type: 'line',
     data: data,
     options: {
         responsive: true,
@@ -77,8 +76,12 @@ const config = {
             },
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart'
+                text: 'Wetterdaten'
             }
         }
     },
 };
+
+let myChart = document.querySelector("#sampleChart");
+
+const chart = new Chart(myChart, config);
