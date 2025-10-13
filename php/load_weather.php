@@ -26,8 +26,8 @@ try {
 
     // SQL-Query mit Platzhaltern für das Einfügen von Daten
     $sql = "INSERT INTO Wetter 
-    (temperatur_min, temperatur_max, bewoelkung, niederschlagsmenge, schneefall, datum)
-    VALUES (:temperatur_min, :temperatur_max, :bewoelkung, :niederschlagsmenge, :schneefall, :datum)";
+    (temperatur_min, temperatur_max, wetter_code, datum)
+    VALUES (:temperatur_min, :temperatur_max, :wetter_code, :datum)";
 
     //Bereitet SQL vor
     $stmt = $pdo->prepare($sql);
@@ -37,9 +37,7 @@ try {
         $stmt->execute([
             ':temperatur_min'     => $row['temperatur_min'],
             ':temperatur_max'     => $row['temperatur_max'],
-            ':bewoelkung'         => $row['bewoelkung'],
-            ':niederschlagsmenge' => $row['niederschlagsmenge'],
-            ':schneefall'         => $row['schneefall'],
+            ':wetter_code'         => $row['wetter_code'],
             ':datum'              => $row['datum']
         ]);
     }
