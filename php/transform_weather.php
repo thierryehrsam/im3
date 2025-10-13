@@ -31,15 +31,24 @@ foreach ($daily['time'] as $i => $datum) {
     $tempMax = round($daily['temperature_2m_max'][$i], 1);
     $tempMin = round($daily['temperature_2m_min'][$i], 1);
 
+    if ($daily['snowfall_sum'][$i] > 0) {
+        $wetter_code = "schnee";
+    } else if ($daily['precipitation_sum'][$i] > 3.0) {
+        $wetter_code = "regen";
+    } else if ($daily['cloud_cover_mean'][$i] > 50) {
+        $wetter_code = "bewoelkt";
+    } else {
+        $wetter_code = "sonnig";
+    }
+
     $transformedData[] = [
         'temperatur_min'     => $tempMin,
         'temperatur_max'     => $tempMax,
-        'bewoelkung'         => (int)$daily['cloud_cover_mean'][$i],
-        'niederschlagsmenge' => (float)$daily['precipitation_sum'][$i],
-        'schneefall'         => (float)$daily['snowfall_sum'][$i],
+        'wetter_code'        => $wetter_code,
         'datum'              => $datum
     ];
 }
 
+print_r($transformedData);
 return $transformedData;
 ?>
