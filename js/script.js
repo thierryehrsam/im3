@@ -1,5 +1,12 @@
 
 const url = '../php/unload.php'; // Pfad zu deiner PHP-Datei
+const unload_url = "../php/unload/";
+const genres_with_weather_data_url = unload_url + "genres_with_weather_data.php";
+const top_genres_last_week_url = unload_url + "top_genres_last_week.php";
+const top_genres_per_weather_url = unload_url + "top_genres_per_weather.php";
+const unique_dates_url = unload_url + "unique_dates.php";
+const weather_last_week_url = unload_url + "weather_last_week.php";
+
 // Array, in dem du die Daten speichern willst
 
 let genresEntwicklung = [
@@ -167,18 +174,16 @@ let genresWeather = [
     }
 ];
 
-let datumsWert = ["2025-09-29", "2025-09-30", "2025-10-01"];
-
-async function loadWeatherData() {
+async function loadData(url) {
     fetch(url)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Fehler beim Laden der Daten");
             }
-            return response.json(); // Antwort in JS-Objekte umwandeln
+            return response.json();
         })
         .then(data => {
-            return data; // Daten im Array speichern
+            return data;
         })
         .catch(error => {
             console.error("Fehler:", error);
@@ -194,7 +199,16 @@ async function loadWeatherData() {
     }
 }
 
-let wetterDaten = await loadWeatherData();
+function loadGenresWithWeatherData() {
+    return loadData(genres_with_weather_data_url);
+}
+
+const genres_with_weather_data = await loadGenresWithWeatherData();
+console.log(genres_with_weather_data);
+
+let datumsWert = ["2025-09-29", "2025-09-30", "2025-10-01"];
+
+
 let temperaturenMin = [];
 let temperaturenMax = [];
 let tage = [];

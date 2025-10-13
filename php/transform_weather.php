@@ -49,6 +49,5 @@ foreach ($daily['time'] as $i => $datum) {
     ];
 }
 
-print_r($transformedData);
 return $transformedData;
 ?>
