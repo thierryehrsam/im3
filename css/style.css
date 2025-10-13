@@ -1,19 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 :root {
-  --color-dark: #340043;
-  --color-light: #FF19E7;
-  --color-third: #17E1BC;
-  --color-green: #5E9148;
-  --color-red: #9A1010;
-  --color-grey: #887A7A;
-  --color-yellow: #F2F68B;
-  --color-pink: #D376D5;
-  --color-lila: #8D6DFF;
-  --color-background-grey: #CCBFD0;
+    --color-dark: #340043;
+    --color-light: #FF19E7;
+    --color-third: #17E1BC;
+    --color-green: #5E9148;
+    --color-red: #9A1010;
+    --color-grey: #887A7A;
+    --color-yellow: #F2F68B;
+    --color-pink: #D376D5;
+    --color-lila: #8D6DFF;
+    --color-background-grey: #CCBFD0;
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--color-dark);
-  margin: 0;
-  padding: 0;
+    font-family: 'League Gothic';
+    background-color: var(--color-dark);
+}
+
+.third {
+    color: var(--color-third);
+}
+
+.light {
+    color: var(--color-light);
+}
+
+.dark {
+    color: var(--color-dark);
+}
+
+.topNumber {
+    font-family: 'Micro 5';
+    font-size: 80px;
+    color: var(--color-third);
+    margin: 0;
+    line-height: 0.7;
+}
+
+header {
+    background-color: var(--color-dark);
+    position: sticky;
+    top: 0;
+    height: 100px;
+    margin-top: 0px;
+    z-index: 100;
+    padding: 20px;
+}
+
+header a {
+    text-decoration: none;
+}
+
+.logo {
+    font-family: 'Lily Script One';
+    font-size: 50px;
+    color: var(--color-light);
+      text-shadow:
+    0 0 5px #FF19E7,
+    0 0 10px #FF19E7,
+    0 0 20px #FF19E7,
+    0 0 40px #FF19E7,
+    0 0 60px #FF19E7;
+  animation: flicker 2s infinite;
+}
+
+#info {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 20px;
+}
+
+#top5LastWeek {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 20px;
+}
+
+.genre1 {
+    font-family: 'League Gothic';
+    letter-spacing: 1px;
+    font-size: 35px;
+}
+
+#genresByWeather {
+    background-color: var(--color-third);
+    color: var(--color-light);
+    padding: 20px;
+}
+
+#genreDevelopment {
+    background-color: var(--color-background-grey);
+    color: var(--color-light);
+    padding: 20px;
+}
+
+footer {
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+
+footer h4 {
+    margin: 5px 0;
+}
+
+h2 {
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.text {
+    margin-bottom: 15px;
+}
+
+.button {
+    font-family: 'League Gothic';
+    font-size: 20px;
+    color: var(--color-light);
+    background-color: var(--color-dark);
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#methodik {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 20px;
+}
+
+#weatherLastWeek {
+    background-color: var(--color-dark);
+    color: var(--color-third);
+    padding: 20px;
+}
+
+#infoGenresByWeather {
+    background-color: var(--color-third);
+    color: var(--color-dark);
+    padding: 20px;
+}
+
+#infoGenreDevelopment {
+    background-color: var(--color-background-grey);
+    color: var(--color-dark);
+    padding: 20px;
+}
+
+/* Animation für flackerndes Neonlicht */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 5px #FF19E7,
+      0 0 5px #FF19E7,
+      0 0 10px #FF19E7,
+      0 0 30px #FF19E7,
+      0 0 60px #FF19E7;
+  }
+  20%, 24%, 55% {
+    opacity: 0.6;
+    text-shadow: none;
+  }
 }

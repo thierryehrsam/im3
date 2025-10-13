@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Lily+Script+One&family=Micro+5&display=swap');
+    </style>
 </head>
+
 <body>
 
-    <h1>Test</h1>
-    <h1>Hallo Beni</h1>
-    <canvas id="sampleChart"></canvas>
-    <script type="module" src="js/script.js"></script>
+    <header>
+        <a href="#info"><h1 class="logo">MetaBeats</h1></a>
+    </header>
 
+    <section id="info">
+        <h2 class="title">So funktioniert's</h2>
+        <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat.
+            Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus
+            die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind
+            die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
+        <a href="info.html" class="button">Weitere Infos</a>
+    </section>
+
+    <section id="top5LastWeek">
+        <h2>Wetter letzte Woche</h2>
+        <h2>Top 5 Genres</h2>
+        <h3 class="topNumber">1. <span class="genre1">Pop</span></h3>
+    </section>
+
+    <section id="genresByWeather">
+        <h2>Top Genres nach Wetter</h2>
+    </section>
+
+    <section id="genreDevelopment">
+        <h2>Entwicklung Genre-Beliebtheit</h2>
+        <canvas id="sampleChart"></canvas>
+    </section>
+
+    <footer>
+        <h4>Interaktive Medien 3 | HS25 | mmp24b</h4>
+        <h4>by Thierry Ehrsam und Benjamin Zuberbühler</h4>
+    </footer>
+
+    <script type="module" src="js/script.js"></script>
 </body>
+
 </html>
