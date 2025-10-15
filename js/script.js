@@ -70,76 +70,77 @@ console.log(weather_last_week);
 const filtered_dates = unique_dates.slice(0, -1);
 let datasets = [];
 
-genres_with_weather_data.forEach((genre) => {
-    const wetterMap = new Map(genre.weather_data.map(w => [w.datum, w]));
+function generateGenresWithWeatherDataChart() {
+    genres_with_weather_data.forEach((genre) => {
+        const wetterMap = new Map(genre.weather_data.map(w => [w.datum, w]));
 
-    const anteile = filtered_dates.map(datum => wetterMap.get(datum)?.anzahl || 0);
-    const wetterInfos = filtered_dates.map(datum => wetterMap.get(datum) || null);
+        const anteile = filtered_dates.map(datum => wetterMap.get(datum)?.anzahl || 0);
+        const wetterInfos = filtered_dates.map(datum => wetterMap.get(datum) || null);
 
-    datasets.push({
-        label: genre.name,
-        data: anteile,
-        borderColor: darkenHexColor(genre.color),
-        backgroundColor: genre.color + '90',
-        pointStyle: 'circle',
-        pointRadius: 5,
-        pointHoverRadius: 7,
-        wetterInfos: wetterInfos
+        datasets.push({
+            label: genre.name,
+            data: anteile,
+            borderColor: darkenHexColor(genre.color),
+            backgroundColor: genre.color + '90',
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            wetterInfos: wetterInfos
+        });
     });
-});
 
-const labels = filtered_dates.map(d => {
-    const [year, month, day] = d.split("-");
-    return `${day}.${month}.${year}`;
-});
+    const labels = filtered_dates.map(d => {
+        const [year, month, day] = d.split("-");
+        return `${day}.${month}.${year}`;
+    });
 
-const data = { labels, datasets };
+    const data = { labels, datasets };
 
-const config = {
-    type: 'line',
-    data,
-    options: {
-        responsive: true,
-        plugins: {
-            legend: { position: 'top' },
-            title: { display: true, text: 'Wetterdaten' },
-            tooltip: {
-                enabled: false, // Standard-Tooltip aus
-                external: function (context) {
-                    const tooltip = context.tooltip;
-                    let tooltipEl = document.getElementById('chartjs-tooltip');
+    const config = {
+        type: 'line',
+        data,
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' },
+                title: { display: true, text: 'Wetterdaten' },
+                tooltip: {
+                    enabled: false, // Standard-Tooltip aus
+                    external: function (context) {
+                        const tooltip = context.tooltip;
+                        let tooltipEl = document.getElementById('chartjs-tooltip');
 
-                    // Tooltip-Element erzeugen, falls nicht vorhanden
-                    if (!tooltipEl) {
-                        tooltipEl = document.createElement('div');
-                        tooltipEl.id = 'chartjs-tooltip';
-                        tooltipEl.classList.add('chart-tooltip');
-                        document.body.appendChild(tooltipEl);
-                    }
+                        // Tooltip-Element erzeugen, falls nicht vorhanden
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.id = 'chartjs-tooltip';
+                            tooltipEl.classList.add('chart-tooltip');
+                            document.body.appendChild(tooltipEl);
+                        }
 
-                    // Wenn kein Tooltip sichtbar sein soll → ausblenden
-                    if (!tooltip || tooltip.opacity === 0) {
-                        tooltipEl.style.opacity = 0;
-                        return;
-                    }
+                        // Wenn kein Tooltip sichtbar sein soll → ausblenden
+                        if (!tooltip || tooltip.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
 
-                    const dataPoint = tooltip.dataPoints?.[0];
-                    if (!dataPoint) return;
+                        const dataPoint = tooltip.dataPoints?.[0];
+                        if (!dataPoint) return;
 
-                    const dataset = dataPoint.dataset;
-                    const info = dataset.wetterInfos?.[dataPoint.dataIndex];
-                    if (!info) return;
+                        const dataset = dataPoint.dataset;
+                        const info = dataset.wetterInfos?.[dataPoint.dataIndex];
+                        if (!info) return;
 
-                    const wetter = info.wetter_code;
-                    const datum = context.chart.data.labels[dataPoint.dataIndex];
-                    const iconPath = {
-                        sonnig: '../images/sonnig.svg',
-                        bewoelkt: '../images/bewoelkt.svg',
-                        regen: '../images/regen.svg',
-                        schnee: '../images/schnee.svg'
-                    }[wetter];
+                        const wetter = info.wetter_code;
+                        const datum = context.chart.data.labels[dataPoint.dataIndex];
+                        const iconPath = {
+                            sonnig: '../images/sonnig.svg',
+                            bewoelkt: '../images/bewoelkt.svg',
+                            regen: '../images/regen.svg',
+                            schnee: '../images/schnee.svg'
+                        }[wetter];
 
-                    tooltipEl.innerHTML = `<div class="date">${datum}</div>
+                        tooltipEl.innerHTML = `<div class="date">${datum}</div>
                                             <div class="weather-data">
                                             <img src="${iconPath}" alt="${wetter}">
                                             <div class="temps">
@@ -147,15 +148,18 @@ const config = {
                                             <div class="min">${info.temperatur_min}°C</div>
                                             </div></div>`;
 
-                    const canvasRect = context.chart.canvas.getBoundingClientRect();
-                    tooltipEl.style.left = canvasRect.left + window.pageXOffset + tooltip.caretX - tooltipEl.offsetWidth / 2 + 'px';
-                    tooltipEl.style.top = canvasRect.top + window.pageYOffset + tooltip.caretY - tooltipEl.offsetHeight - 10 + 'px';
-                    tooltipEl.style.opacity = 1;
-                    tooltipEl.style.background = dataset.backgroundColor;
+                        const canvasRect = context.chart.canvas.getBoundingClientRect();
+                        tooltipEl.style.left = canvasRect.left + window.pageXOffset + tooltip.caretX - tooltipEl.offsetWidth / 2 + 'px';
+                        tooltipEl.style.top = canvasRect.top + window.pageYOffset + tooltip.caretY - tooltipEl.offsetHeight - 10 + 'px';
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.background = dataset.backgroundColor;
+                    }
                 }
             }
         }
-    }
-};
+    };
 
-new Chart(document.querySelector("#sampleChart"), config);
+    return config;
+}
+
+new Chart(document.querySelector("#sampleChart"), generateGenresWithWeatherDataChart());
