@@ -40,6 +40,7 @@ body {
     color: var(--color-third);
     margin: 0;
     line-height: 0.7;
+    list-style-position: inside;
 }
 
 header {
@@ -504,14 +505,4 @@ h2 {
 
 .chart-tooltip .temps .min {
     color: var(--color-grey);
-}
-
-#top5LastWeek {
-    padding-left: 2em;
-    /* sorgt für Platz für Nummerierung */
-}
-
-#top5LastWeek li {
-    margin: 4px 0;
-    font-size: 1.2rem;
 }
