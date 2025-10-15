@@ -162,4 +162,22 @@ function generateGenresWithWeatherDataChart() {
     return config;
 }
 
+function renderTopGenres(genres) {
+    const container = document.getElementById("top5LastWeek");
+
+    genres.forEach((genre, index) => {
+        const number = index + 1;
+        const h3 = document.createElement("h3");
+        h3.classList.add("topNumber");
+
+        // HTML-Struktur einfügen
+        h3.innerHTML = `${number}. <span class="genre1">${genre}</span>`;
+
+        container.appendChild(h3);
+    });
+}
+
+// Beispielaufruf mit API-Daten:
+renderTopGenres(top_genres_last_week);
+
 new Chart(document.querySelector("#sampleChart"), generateGenresWithWeatherDataChart());
