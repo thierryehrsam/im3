@@ -62,13 +62,12 @@ header a {
     font-size: 50px;
     color: var(--color-light);
     text-shadow:
-        0 0 3px #ff19e86b,
-        0 0 6px #ff19e87e,
-        0 0 12px #ff19e885,
-        0 0 20px rgba(255, 25, 231, 0.2),
-        0 0 30px rgba(255, 25, 231, 0.1);
-    animation: flicker 3s infinite;
-    /* langsamer und ruhiger */
+        0 0 5px #FF19E7,
+        0 0 10px #FF19E7,
+        0 0 20px #FF19E7,
+        0 0 40px #FF19E7,
+        0 0 60px #FF19E7;
+    animation: flicker 2s infinite;
 }
 
 #info {
@@ -141,12 +140,6 @@ h2 {
     padding: 20px;
 }
 
-#weatherLastWeek {
-    background-color: var(--color-dark);
-    color: var(--color-third);
-    padding: 20px;
-}
-
 #infoGenresByWeather {
     background-color: var(--color-third);
     color: var(--color-dark);
@@ -163,29 +156,27 @@ h2 {
 @keyframes flicker {
 
     0%,
-    18%,
-    22%,
+    19%,
+    21%,
+    23%,
     25%,
-    53%,
-    57%,
+    54%,
+    56%,
     100% {
         opacity: 1;
         text-shadow:
-            0 0 3px #ff19e86b,
-            0 0 6px #ff19e87e,
-            0 0 12px #ff19e885,
-            0 0 20px rgba(255, 25, 231, 0.2),
-            0 0 30px rgba(255, 25, 231, 0.1);
+            0 0 5px #FF19E7,
+            0 0 5px #FF19E7,
+            0 0 10px #FF19E7,
+            0 0 30px #FF19E7,
+            0 0 60px #FF19E7;
     }
 
     20%,
     24%,
     55% {
-        opacity: 0.85;
-        /* statt 0.6 – nicht ganz aus */
-        text-shadow:
-            0 0 2px rgba(255, 25, 231, 0.2),
-            0 0 5px rgba(255, 25, 231, 0.1);
+        opacity: 0.6;
+        text-shadow: none;
     }
 }
 
@@ -457,18 +448,12 @@ h2 {
     }
 
     header {
-        display: flex;
-        justify-content: center;
-        /* horizontal zentrieren */
-        align-items: center;
-        /* vertikal zentrieren (optional) */
-    }
-
-    .logo {
-        padding-top: 35px;
-        font-size: 40px;
-        margin: 0 auto;
-        /* falls bisher margin-left/right gesetzt war */
+        /* Höhe kommt von der Grid-Zeile */
+        position: sticky;
+        top: 0;
+        /* darf bleiben, ist optional */
+        height: auto;
+        /* überschreibt frühere %-Höhe */
     }
 
     main.page {
@@ -553,24 +538,31 @@ h2 {
 #weatherLastWeek {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
+    max-width: 420px;
+    margin-bottom: 10px;
 }
 
 .weatherDay {
-    display: block;
-
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .weatherIcon {
+    position: relative;
     width: 40px;
-    /* oder was zu deinem Layout passt */
-    color: var(--color-third);
+    height: 40px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dayLabel {
-    font-size: 18px;
-    color: #FFFFFF;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    font-size: 16px;
+    color: white;
+    text-align: center;
 }
