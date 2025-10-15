@@ -66,6 +66,7 @@
                     <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im Verhältnis zu
                         den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die Wetter-Verhältnisse am
                         jeweiligen Tag eingeblendet.</p>
+
                 </section>
             </section>
 
@@ -81,8 +82,20 @@
                     <button class="sidepanel__close" type="button" aria-label="Schliessen" hidden>×</button>
                 </h2>
                 <div id="genresByWeatherContent" class="sidepanel__content" hidden>
-                    <!-- dein bisheriger Inhalt von #genresByWeather -->
-                    <!-- Beispiel: Platzhalter -->
+                    <div id="weather-nav">
+                        <div class="weather-btn" data-weather="sonnig">
+                            <img src="../images/sonnig.svg" alt="Sonnig" />
+                        </div>
+                        <div class="weather-btn" data-weather="bewoelkt">
+                            <img src="../images/bewoelkt.svg" alt="Bewölkt" />
+                        </div>
+                        <div class="weather-btn" data-weather="regen">
+                            <img src="../images/regen.svg" alt="Regen" />
+                        </div>
+                        <div class="weather-btn" data-weather="schnee">
+                            <img src="../images/schnee.svg" alt="Schnee" />
+                        </div>
+                    </div>
                     <canvas id="topGenresPerWeatherChart"></canvas>
                 </div>
             </section>
