@@ -7,6 +7,37 @@ const weather_last_week_url = unload_url + "weather_last_week.php";
 
 const color_dark = "#340043";
 
+// Plugin für Chart.js, das bei leeren Datensätzen "Keine Daten verfügbar" anzeigt
+Chart.register({
+    id: 'noDataMessage',
+    afterDraw(chart) {
+        const { ctx, chartArea } = chart;
+
+        // Prüfen, ob überhaupt Daten vorhanden sind
+        const hasData =
+            chart.data.datasets &&
+            chart.data.datasets.some(ds =>
+                ds.data && ds.data.length > 0 && ds.data.some(v => v !== 0)
+            );
+
+        // Wenn keine Daten -> Text anzeigen
+        if (!hasData) {
+            const { left, right, top, bottom } = chartArea;
+            const x = (left + right) / 2;
+            const y = (top + bottom) / 2;
+
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '16px';
+            ctx.fillStyle = '#999';
+            ctx.fillText('Keine Daten verfügbar', x, y);
+            ctx.restore();
+        }
+    }
+});
+
+
 function darkenHexColor(hex, percent = 3) {
     // Prozent in einen Faktor umwandeln (z. B. 10% → 0.9)
     const factor = 1 - percent / 100;
@@ -62,13 +93,6 @@ const top_genres_last_week = await loadData(top_genres_last_week_url);
 const top_genres_per_weather = await loadData(top_genres_per_weather_url);
 const unique_dates = await loadData(unique_dates_url);
 const weather_last_week = await loadData(weather_last_week_url);
-
-console.log(genres_with_weather_data);
-console.log(top_genres_last_week);
-console.log(top_genres_per_weather);
-console.log(unique_dates);
-console.log(weather_last_week);
-
 const filtered_dates = unique_dates.slice(0, -1);
 let datasets = [];
 
@@ -262,11 +286,23 @@ new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWe
 function updateTopGenresPerWeatherChart(weatherCode) {
     // Beispiel: die passenden Daten aus deinem Array holen
     const wetterObjekt = top_genres_per_weather.find(entry => entry.wetter_code === weatherCode);
-    const top_genres = wetterObjekt.top_genres;
 
-    // Labels und Daten neu setzen
-    topGenresChart.data.labels = top_genres.map(g => g.name);
-    topGenresChart.data.datasets[0].data = top_genres.map(g => g.anzahl);
+    if (!wetterObjekt || !wetterObjekt.top_genres.length) {
+        // Setze einfach leere Arrays:
+        topGenresChart.data.labels = [];
+        topGenresChart.data.datasets[0].data = [];
+        topGenresChart.options.plugins.title.text = `Keine Daten`;
+        topGenresChart.update();
+        return;
+    } else {
+        const top_genres = wetterObjekt.top_genres;
+
+        // Labels und Daten neu setzen
+        topGenresChart.data.labels = top_genres.map(g => g.name);
+        topGenresChart.data.datasets[0].data = top_genres.map(g => g.anzahl);
+        topGenresChart.options.plugins.title.text = `Anzahl Genre-Streams`;
+    }
+
 
     // Chart aktualisieren
     topGenresChart.update();
@@ -279,7 +315,7 @@ weatherButtons.forEach(btn => {
     const weatherType = btn.dataset.weather;
     btn.addEventListener('click', () => {
         console.log(`Klick auf: ${weatherType}`);
-        updateTopGenresPerWeatherChart($weatherType);
+        updateTopGenresPerWeatherChart(weatherType);
         weatherButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
