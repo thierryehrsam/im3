@@ -188,13 +188,13 @@ h2 {
 /* ====== Layout für Desktop-Grid ====== */
 :root {
     --gap: 1.2rem;
-    --side-collapsed: 64px;
+    --side-collapsed: 88px;
 }
 
 .page {
     display: grid;
     gap: var(--gap);
-    grid-template-columns: 1.5fr 2fr minmax(var(--side-collapsed), 0.3fr);
+    grid-template-columns: 1.5fr 2fr minmax(var(--side-collapsed), 0.2fr);
     grid-template-areas: "left middle right";
     /* <— nur EINE Zeile */
     grid-template-rows: auto;
@@ -236,24 +236,38 @@ h2 {
 
 /* Rechte Spalte: standardmässig schmal, nur Titel sichtbar */
 .sidepanel {
-    padding: .25rem .5rem;
-    overflow: hidden;
+    padding: .25rem 0;
+    display: flex;
+    align-items: stretch;
     position: relative;
-    min-height: 0;
-    /* <— Kinder dürfen schrumpfen */
     overflow: hidden;
+    /* keep */
+    min-height: 0;
+}
+
+.sidepanel h2 {
+    /* remove default margins so the rail is tight */
+    margin: 0;
 }
 
 .sidepanel__trigger {
     inline-size: 100%;
+    block-size: 100%;
+    /* ← fill full height of its half-column */
+    display: flex;
+    /* center the text */
+    align-items: center;
+    justify-content: center;
     writing-mode: vertical-rl;
     transform: rotate(180deg);
     background: none;
     border: 0;
     color: inherit;
+    /* uses each panel’s color */
     font: inherit;
     cursor: pointer;
-    padding: .5rem 0;
+    padding: 0;
+    /* no internal padding → maximum legibility */
 }
 
 .sidepanel__content {
@@ -273,6 +287,12 @@ h2 {
     line-height: 1;
     cursor: pointer;
     opacity: .8;
+}
+
+.sidepanel.--open {
+    padding-top: 2.75rem;
+      grid-row: 1 / -1;     /* spannt von oberster bis unterster Zeile */
+  height: 100%;
 }
 
 /* Wenn ein Panel geöffnet wird: Mitte verschwindet, rechte Spalte wird breit */
@@ -295,10 +315,23 @@ h2 {
     transform: none;
     text-align: left;
     padding: .25rem 2rem .5rem .25rem;
+    display: block;
+    /* Flex-Zentrierung von oben überschreiben */
+    block-size: auto;
+    /* nicht mehr ganze Höhe einnehmen */
+    align-items: initial;
+    /* reset */
+    justify-content: flex-start;
+    position: sticky;
+    /* oben festpinnen (scrollt mit Inhalt nicht weg) */
+    top: 0;
+    z-index: 1;
 }
 
 .sidepanel.--open .sidepanel__content {
     max-height: 100vh;
+      overflow: auto;
+  min-height: 0;
 }
 
 .sidepanel.--open .sidepanel__close {
@@ -454,7 +487,7 @@ h2 {
         overflow: auto;
     }
 
-    
+
 }
 
 
