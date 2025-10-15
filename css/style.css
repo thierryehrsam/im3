@@ -292,8 +292,9 @@ h2 {
 
 .sidepanel.--open {
     padding-top: 2.75rem;
-      grid-row: 1 / -1;     /* spannt von oberster bis unterster Zeile */
-  height: 100%;
+    grid-row: 1 / -1;
+    /* spannt von oberster bis unterster Zeile */
+    height: 100%;
 }
 
 /* Wenn ein Panel geöffnet wird: Mitte verschwindet, rechte Spalte wird breit */
@@ -331,8 +332,8 @@ h2 {
 
 .sidepanel.--open .sidepanel__content {
     max-height: 100vh;
-      overflow: auto;
-  min-height: 0;
+    overflow: auto;
+    min-height: 0;
 }
 
 .sidepanel.--open .sidepanel__close {
