@@ -60,13 +60,13 @@ header a {
     font-family: 'Lily Script One';
     font-size: 50px;
     color: var(--color-light);
-      text-shadow:
-    0 0 5px #FF19E7,
-    0 0 10px #FF19E7,
-    0 0 20px #FF19E7,
-    0 0 40px #FF19E7,
-    0 0 60px #FF19E7;
-  animation: flicker 2s infinite;
+    text-shadow:
+        0 0 5px #FF19E7,
+        0 0 10px #FF19E7,
+        0 0 20px #FF19E7,
+        0 0 40px #FF19E7,
+        0 0 60px #FF19E7;
+    animation: flicker 2s infinite;
 }
 
 #info {
@@ -159,17 +159,76 @@ h2 {
 
 /* Animation für flackerndes Neonlicht */
 @keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow:
-      0 0 5px #FF19E7,
-      0 0 5px #FF19E7,
-      0 0 10px #FF19E7,
-      0 0 30px #FF19E7,
-      0 0 60px #FF19E7;
-  }
-  20%, 24%, 55% {
-    opacity: 0.6;
-    text-shadow: none;
-  }
+
+    0%,
+    19%,
+    21%,
+    23%,
+    25%,
+    54%,
+    56%,
+    100% {
+        opacity: 1;
+        text-shadow:
+            0 0 5px #FF19E7,
+            0 0 5px #FF19E7,
+            0 0 10px #FF19E7,
+            0 0 30px #FF19E7,
+            0 0 60px #FF19E7;
+    }
+
+    20%,
+    24%,
+    55% {
+        opacity: 0.6;
+        text-shadow: none;
+    }
+}
+
+.chart-tooltip {
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border-radius: 12px;
+    padding: 12px 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 9999;
+    color: var(--color-dark);
+}
+
+.chart-tooltip .weather-data {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chart-tooltip .date {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.chart-tooltip img {
+    width: 35px;
+    height: 35px;
+    margin: 4px 0;
+}
+
+.chart-tooltip .temps {
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+}
+
+.chart-tooltip .temps .max {
+    color: #FFFFFF;
+}
+
+.chart-tooltip .temps .min {
+    color: var(--color-grey);
 }

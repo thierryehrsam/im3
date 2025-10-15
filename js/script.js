@@ -1,5 +1,3 @@
-
-const url = '../php/unload.php'; // Pfad zu deiner PHP-Datei
 const unload_url = "../php/unload/";
 const genres_with_weather_data_url = unload_url + "genres_with_weather_data.php";
 const top_genres_last_week_url = unload_url + "top_genres_last_week.php";
@@ -7,172 +5,30 @@ const top_genres_per_weather_url = unload_url + "top_genres_per_weather.php";
 const unique_dates_url = unload_url + "unique_dates.php";
 const weather_last_week_url = unload_url + "weather_last_week.php";
 
-// Array, in dem du die Daten speichern willst
+function darkenHexColor(hex, percent = 3) {
+    // Prozent in einen Faktor umwandeln (z. B. 10% → 0.9)
+    const factor = 1 - percent / 100;
 
-let genresEntwicklung = [
-    {
-        name: "Country", color: "#0bb882", weather_data:
-            [
-                { datum: "2025-10-08", anzahl: 47, wetter_code: "bewoelkt", temperatur_min: 10.2, temperatur_max: 14.5 },
-                { datum: "2025-10-09", anzahl: 21, wetter_code: "regen", temperatur_min: 8.9, temperatur_max: 13.2 },
-                { datum: "2025-10-10", anzahl: 54, wetter_code: "sonnig", temperatur_min: 7.6, temperatur_max: 8.8 },
-                { datum: "2025-10-11", anzahl: 23, wetter_code: "sonnig", temperatur_min: 10.5, temperatur_max: 14.3 }
-            ]
-    },
-    {
-        name: "Rock", color: "#ce97ab", weather_data:
-            [
-                { datum: "2025-10-08", anzahl: 87, wetter_code: "bewoelkt", temperatur_min: 10.2, temperatur_max: 14.5 },
-                { datum: "2025-10-09", anzahl: 33, wetter_code: "regen", temperatur_min: 8.9, temperatur_max: 13.2 },
-                { datum: "2025-10-10", anzahl: 0, wetter_code: "sonnig", temperatur_min: 7.6, temperatur_max: 8.8 },
-                { datum: "2025-10-11", anzahl: 17, wetter_code: "sonnig", temperatur_min: 10.5, temperatur_max: 14.3 }
-            ]
-    },
-    {
-        name: "Pop", color: "#7262ad", weather_data:
-            [
-                { datum: "2025-10-08", anzahl: 61, wetter_code: "bewoelkt", temperatur_min: 10.2, temperatur_max: 14.5 },
-                { datum: "2025-10-09", anzahl: 24, wetter_code: "regen", temperatur_min: 8.9, temperatur_max: 13.2 },
-                { datum: "2025-10-10", anzahl: 8, wetter_code: "sonnig", temperatur_min: 7.6, temperatur_max: 8.8 },
-                { datum: "2025-10-11", anzahl: 32, wetter_code: "sonnig", temperatur_min: 10.5, temperatur_max: 14.3 }
-            ]
-    }];
-
-let weatherLastWeek = [
-    {
-        datum: "2025-09-29",
-        wetter_code: "sonnig"
-    },
-    {
-        datum: "2025-09-30",
-        wetter_code: "bewoelkt"
-    },
-    {
-        datum: "2025-10-01",
-        wetter_code: "sonnig"
-    },
-    {
-        datum: "2025-10-02",
-        wetter_code: "bewoelkt"
-    },
-    {
-        datum: "2025-10-03",
-        wetter_code: "regen"
-    },
-    {
-        datum: "2025-10-04",
-        wetter_code: "regen"
-    },
-    {
-        datum: "2025-10-05",
-        wetter_code: "schnee"
+    // Hex normalisieren: "#" entfernen, ggf. 3-stellig zu 6-stellig machen
+    hex = hex.replace(/^#/, '');
+    if (hex.length === 3) {
+        hex = hex.split('').map(x => x + x).join('');
     }
-];
 
-let topGenres = ["Country", "Rock", "Pop", "Hip Hop", "Indie"];
+    // In RGB zerlegen
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
 
-let genresWeather = [
-    {
-        wetter_code: "sonnig",
-        top_genres: [
-            {
-                name: "Country",
-                anzahl: 47
-            },
-            {
-                name: "Pop",
-                anzahl: 35
-            },
-            {
-                name: "Rock",
-                anzahl: 12
-            },
-            {
-                name: "Hip Hop",
-                anzahl: 10
-            },
-            {
-                name: "Indie",
-                anzahl: 3
-            }
-        ]
-    },
-    {
-        wetter_code: "bewoelkt",
-        top_genres: [
-            {
-                name: "Rock",
-                anzahl: 61
-            },
-            {
-                name: "Rap",
-                anzahl: 50
-            },
-            {
-                name: "Jazz",
-                anzahl: 42
-            },
-            {
-                name: "Pop",
-                anzahl: 40
-            },
-            {
-                name: "Schlager",
-                anzahl: 13
-            }
-        ]
-    },
-    {
-        wetter_code: "regen",
-        top_genres: [
-            {
-                name: "Jazz",
-                anzahl: 62
-            },
-            {
-                name: "Reggae",
-                anzahl: 55
-            },
-            {
-                name: "Latino",
-                anzahl: 43
-            },
-            {
-                name: "Pop",
-                anzahl: 31
-            },
-            {
-                name: "Rock",
-                anzahl: 28
-            }
-        ]
-    },
-    {
-        wetter_code: "schnee",
-        top_genres: [
-            {
-                name: "Hip Hop",
-                anzahl: 48
-            },
-            {
-                name: "Rap",
-                anzahl: 45
-            },
-            {
-                name: "Pop",
-                anzahl: 30
-            },
-            {
-                name: "Rock",
-                anzahl: 23
-            },
-            {
-                name: "Alternative",
-                anzahl: 15
-            }
-        ]
-    }
-];
+    // Abdunkeln und begrenzen (0–255)
+    const newR = Math.max(0, Math.min(255, Math.floor(r * factor)));
+    const newG = Math.max(0, Math.min(255, Math.floor(g * factor)));
+    const newB = Math.max(0, Math.min(255, Math.floor(b * factor)));
+
+    // Zurück in Hex umwandeln
+    const toHex = v => v.toString(16).padStart(2, '0');
+    return `#${toHex(newR)}${toHex(newG)}${toHex(newB)}`;
+}
 
 async function loadData(url) {
     fetch(url)
@@ -199,76 +55,107 @@ async function loadData(url) {
     }
 }
 
-function loadGenresWithWeatherData() {
-    return loadData(genres_with_weather_data_url);
-}
+const genres_with_weather_data = await loadData(genres_with_weather_data_url);
+const top_genres_last_week = await loadData(top_genres_last_week_url);
+const top_genres_per_weather = await loadData(top_genres_per_weather_url);
+const unique_dates = await loadData(unique_dates_url);
+const weather_last_week = await loadData(weather_last_week_url);
 
-const genres_with_weather_data = await loadGenresWithWeatherData();
 console.log(genres_with_weather_data);
+console.log(top_genres_last_week);
+console.log(top_genres_per_weather);
+console.log(unique_dates);
+console.log(weather_last_week);
 
-let datumsWert = ["2025-09-29", "2025-09-30", "2025-10-01"];
-
-
-let temperaturenMin = [];
-let temperaturenMax = [];
-let tage = [];
-
-wetterDaten.forEach(data => {
-    temperaturenMin.push(data.temperatur_min);
-    temperaturenMax.push(data.temperatur_max);
-    tage.push(data.datum);
-
-});
-
-
+const filtered_dates = unique_dates.slice(0, -1);
 let datasets = [];
 
-genresEntwicklung.forEach(genre => {
-    let anteile = [];
-    genre.dates.forEach(date => {
-        anteile.push(date.anzahl);
-    });
+genres_with_weather_data.forEach((genre) => {
+    const wetterMap = new Map(genre.weather_data.map(w => [w.datum, w]));
+
+    const anteile = filtered_dates.map(datum => wetterMap.get(datum)?.anzahl || 0);
+    const wetterInfos = filtered_dates.map(datum => wetterMap.get(datum) || null);
 
     datasets.push({
         label: genre.name,
         data: anteile,
-        borderColor: genre.color,
-        backgroundColor: genre.color
+        borderColor: darkenHexColor(genre.color),
+        backgroundColor: genre.color + '90',
+        pointStyle: 'circle',
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        wetterInfos: wetterInfos
     });
 });
 
-console.log(temperaturenMin);
-console.log(temperaturenMax);
-console.log(tage);
-
-let daten = [];
-genres[0].dates.forEach(date => {
-    daten.push(date.datum);
+const labels = filtered_dates.map(d => {
+    const [year, month, day] = d.split("-");
+    return `${day}.${month}.${year}`;
 });
 
-const labels = daten;
-const data = {
-    labels: labels,
-    datasets: datasets
-};
+const data = { labels, datasets };
 
 const config = {
     type: 'line',
-    data: data,
+    data,
     options: {
         responsive: true,
         plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: 'Wetterdaten'
+            legend: { position: 'top' },
+            title: { display: true, text: 'Wetterdaten' },
+            tooltip: {
+                enabled: false, // Standard-Tooltip aus
+                external: function (context) {
+                    const tooltip = context.tooltip;
+                    let tooltipEl = document.getElementById('chartjs-tooltip');
+
+                    // Tooltip-Element erzeugen, falls nicht vorhanden
+                    if (!tooltipEl) {
+                        tooltipEl = document.createElement('div');
+                        tooltipEl.id = 'chartjs-tooltip';
+                        tooltipEl.classList.add('chart-tooltip');
+                        document.body.appendChild(tooltipEl);
+                    }
+
+                    // Wenn kein Tooltip sichtbar sein soll → ausblenden
+                    if (!tooltip || tooltip.opacity === 0) {
+                        tooltipEl.style.opacity = 0;
+                        return;
+                    }
+
+                    const dataPoint = tooltip.dataPoints?.[0];
+                    if (!dataPoint) return;
+
+                    const dataset = dataPoint.dataset;
+                    const info = dataset.wetterInfos?.[dataPoint.dataIndex];
+                    if (!info) return;
+
+                    const wetter = info.wetter_code;
+                    const datum = context.chart.data.labels[dataPoint.dataIndex];
+                    const iconPath = {
+                        sonnig: '../images/sonnig.svg',
+                        bewoelkt: '../images/bewoelkt.svg',
+                        regen: '../images/regen.svg',
+                        schnee: '../images/schnee.svg'
+                    }[wetter];
+
+                    tooltipEl.innerHTML = `<div class="date">${datum}</div>
+                                            <div class="weather-data">
+                                            <img src="${iconPath}" alt="${wetter}">
+                                            <div class="temps">
+                                            <div class="max">${info.temperatur_max}°C</div>
+                                            <div class="min">${info.temperatur_min}°C</div>
+                                            </div></div>`;
+
+                    const canvasRect = context.chart.canvas.getBoundingClientRect();
+                    tooltipEl.style.left = canvasRect.left + window.pageXOffset + tooltip.caretX - tooltipEl.offsetWidth / 2 + 'px';
+                    tooltipEl.style.top = canvasRect.top + window.pageYOffset + tooltip.caretY - tooltipEl.offsetHeight - 10 + 'px';
+                    tooltipEl.style.opacity = 1;
+                    tooltipEl.style.background = dataset.backgroundColor;
+                }
             }
         }
-    },
+    }
 };
 
-let myChart = document.querySelector("#sampleChart");
-
-const chart = new Chart(myChart, config);
+new Chart(document.querySelector("#sampleChart"), config);
