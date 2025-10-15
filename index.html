@@ -15,97 +15,101 @@
 <body>
 
     <header>
-        <a href="#info"><h1 class="logo">MetaBeats</h1></a>
+        <a href="#info">
+            <h1 class="logo">MetaBeats</h1>
+        </a>
     </header>
 
     <main class="page" id="page">
 
-  <!-- SPALTE 1: Wetter + Top 5 -->
-  <section id="top5LastWeek" class="card">
-    <h2>Wetter letzte Woche</h2>
+        <!-- SPALTE 1: Wetter + Top 5 -->
+        <section id="top5LastWeek" class="card">
+            <h2>Wetter letzte Woche</h2>
 
-    <h2>Top 5 Genres</h2>
-    <h3 class="topNumber">1. <span class="genre1">Pop</span></h3>
-    <!-- … dein bestehender Inhalt hier … -->
-  </section>
+            <h2>Top 5 Genres</h2>
+            <!-- <h3 class="topNumber">1. <span class="genre1">Pop</span></h3> -->
+            <!-- … dein bestehender Inhalt hier … -->
+        </section>
 
-  <!-- SPALTE 2: Infotexte -->
-  <section id="info" class="card" aria-label="Infotexte">
-    <h2 class="title">So funktioniert's</h2>
-    <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat.
-      Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus
-      die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind
-      die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
-    <a href="info.html" class="button">Weitere Infos</a>
+        <!-- SPALTE 2: Infotexte -->
+        <section id="info" class="card" aria-label="Infotexte">
+            <h2 class="title">So funktioniert's</h2>
+            <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat.
+                Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus
+                die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind
+                die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
+            <a href="info.html" class="button">Weitere Infos</a>
 
-    <section class="detailinfo">
-           <section id="methodik">
-        <h2 class="title third">Methodik</h2>
-        <p class="text">Zum Zeitpunkt der Abgabe des UX sind die Methodik zur Datenerhebung und die genauen Berechnungen
-            noch nicht definiert. In diesem Bereich würde dies zur Nachvollziehbarkeit im Detail beschrieben werden.</p>
-    </section>
+            <section class="detailinfo">
+                <section id="methodik">
+                    <h2 class="title third">Methodik</h2>
+                    <p class="text">Zum Zeitpunkt der Abgabe des UX sind die Methodik zur Datenerhebung und die genauen Berechnungen
+                        noch nicht definiert. In diesem Bereich würde dies zur Nachvollziehbarkeit im Detail beschrieben werden.</p>
+                </section>
 
-    <section id="weatherLastWeek">
-        <h2 class="title light">Wetter letzte Woche</h2>
-        <p class="text">In diesem Abschnitt ist das Wetter der letzten Woche (Durchschnittswert und einzelne Tage)
-            angezeigt. Dazu werden die 5 meistgehörten Genre der letzten Woche aufgelistet.</p>
-    </section>
+                <section id="weatherLastWeek">
+                    <h2 class="title light">Wetter letzte Woche</h2>
+                    <p class="text">In diesem Abschnitt ist das Wetter der letzten Woche (Durchschnittswert und einzelne Tage)
+                        angezeigt. Dazu werden die 5 meistgehörten Genre der letzten Woche aufgelistet.</p>
+                </section>
 
-    <section id="infoGenresByWeather">
-        <h2 class="title light">Top Genres nach Wetter</h2>
-        <p class="text">In diesem Abschnitt werden die meistgehörten Genres der letzten Woche in Bezug auf das Wetter
-            angezeigt. Dazu werden die Wetterdaten mit den gehörten Genres kombiniert und analysiert.</p>
-    </section>
+                <section id="infoGenresByWeather">
+                    <h2 class="title light">Top Genres nach Wetter</h2>
+                    <p class="text">In diesem Abschnitt werden die meistgehörten Genres der letzten Woche in Bezug auf das Wetter
+                        angezeigt. Dazu werden die Wetterdaten mit den gehörten Genres kombiniert und analysiert.</p>
+                </section>
 
-    <section id="infoGenreDevelopment">
-        <h2 class="title light">Entwicklung Genre-Beliebtheit</h2>
-        <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im Verhältnis zu
-            den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die Wetter-Verhältnisse am
-            jeweiligen Tag eingeblendet.</p>
-    </section>
-    </section>
+                <section id="infoGenreDevelopment">
+                    <h2 class="title light">Entwicklung Genre-Beliebtheit</h2>
+                    <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im Verhältnis zu
+                        den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die Wetter-Verhältnisse am
+                        jeweiligen Tag eingeblendet.</p>
+                </section>
+            </section>
 
-  </section>
+        </section>
 
-<section id="weatherAndGenres" class="sidewrap" data-wrapper>
-  <!-- SPALTE 3A: Panel 1 (schmal, nur Titel sichtbar – Klick öffnet) -->
-  <section id="genresByWeather" class="card sidepanel" data-panel>
-    <h2>
-      <button class="sidepanel__trigger" aria-expanded="false" aria-controls="genresByWeatherContent">
-        Top-Genres nach Wetter
-      </button>
-      <button class="sidepanel__close" type="button" aria-label="Schliessen" hidden>×</button>
-    </h2>
-    <div id="genresByWeatherContent" class="sidepanel__content" hidden>
-      <!-- dein bisheriger Inhalt von #genresByWeather -->
-      <!-- Beispiel: Platzhalter -->
-      <p>Hier kommt die Übersicht der Top-Genres pro Wettertyp hin.</p>
-    </div>
-  </section>
+        <section id="weatherAndGenres" class="sidewrap" data-wrapper>
+            <!-- SPALTE 3A: Panel 1 (schmal, nur Titel sichtbar – Klick öffnet) -->
+            <section id="genresByWeather" class="card sidepanel" data-panel>
+                <h2>
+                    <button class="sidepanel__trigger" aria-expanded="false" aria-controls="genresByWeatherContent">
+                        Top-Genres nach Wetter
+                    </button>
+                    <button class="sidepanel__close" type="button" aria-label="Schliessen" hidden>×</button>
+                </h2>
+                <div id="genresByWeatherContent" class="sidepanel__content" hidden>
+                    <!-- dein bisheriger Inhalt von #genresByWeather -->
+                    <!-- Beispiel: Platzhalter -->
+                    <canvas id="topGenresPerWeatherChart"></canvas>
+                </div>
+            </section>
 
-  <!-- SPALTE 3B: Panel 2 -->
-  <section id="genreDevelopment" class="card sidepanel" data-panel>
-    <h2>
-      <button class="sidepanel__trigger" aria-expanded="false" aria-controls="genreDevelopmentContent">
-        Entwicklung Genre-Beliebtheit
-      </button>
-      <button class="sidepanel__close" type="button" aria-label="Schliessen" hidden>×</button>
-    </h2>
-    <div id="genreDevelopmentContent" class="sidepanel__content" hidden>
-      <canvas id="sampleChart"></canvas>
-    </div>
-  </section>
-</section>
+            <!-- SPALTE 3B: Panel 2 -->
+            <section id="genreDevelopment" class="card sidepanel" data-panel>
+                <h2>
+                    <button class="sidepanel__trigger" aria-expanded="false" aria-controls="genreDevelopmentContent">
+                        Entwicklung Genre-Beliebtheit
+                    </button>
+                    <button class="sidepanel__close" type="button" aria-label="Schliessen" hidden>×</button>
+                </h2>
+                <div id="genreDevelopmentContent" class="sidepanel__content" hidden>
+                    <canvas id="genreDevelopmentChart"></canvas>
+                </div>
+            </section>
+        </section>
 
-</main>
+    </main>
 
-<footer> 
-    <h4>Interaktive Medien 3 | HS25 | mmp24b</h4>
-    <h4>by Thierry Ehrsam und Benjamin Zuberbühler</h4>
-</footer>
+    <footer>
+        <h4>Interaktive Medien 3 | HS25 | mmp24b</h4>
+        <h4>by Thierry Ehrsam und Benjamin Zuberbühler</h4>
+    </footer>
 
 
     <script type="module" src="js/script.js"></script>
+    <script type="module" src="js/second_script.js"></script>
+
 </body>
 
 </html>
