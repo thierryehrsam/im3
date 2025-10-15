@@ -46,7 +46,7 @@ header {
     background-color: var(--color-dark);
     position: sticky;
     top: 0;
-    height: 100px;
+    height: 10%;
     margin-top: 0px;
     z-index: 100;
     padding: 20px;
@@ -184,6 +184,279 @@ h2 {
         text-shadow: none;
     }
 }
+
+/* ====== Layout für Desktop-Grid ====== */
+:root {
+    --gap: 1.2rem;
+    --side-collapsed: 64px;
+}
+
+.page {
+    display: grid;
+    gap: var(--gap);
+    grid-template-columns: 1.5fr 2fr minmax(var(--side-collapsed), 0.3fr);
+    grid-template-areas: "left middle right";
+    /* <— nur EINE Zeile */
+    grid-template-rows: auto;
+    /* <— explizit eine Reihe */
+    align-items: stretch;
+    /* Panels dürfen die Reihe ausfüllen */
+    transition: grid-template-columns .35s ease;
+    padding: 0 20px;
+    /* optionaler Innenabstand */
+}
+
+#weatherAndGenres {
+    grid-area: right;
+}
+
+#top5LastWeek {
+    grid-area: left;
+}
+
+#info {
+    grid-area: middle;
+}
+
+/* Der Wrapper füllt die volle Höhe der rechten Spalte und teilt sie 1/1 */
+.sidewrap {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    /* halb/halb */
+    gap: var(--gap);
+    align-self: stretch;
+    /* füllt die Höhe der einzigen Page-Reihe */
+    min-height: 0;
+    /* <— wichtig gegen „Aufblasen“ */
+}
+
+.card {
+    border-radius: 12px;
+}
+
+/* Rechte Spalte: standardmässig schmal, nur Titel sichtbar */
+.sidepanel {
+    padding: .25rem .5rem;
+    overflow: hidden;
+    position: relative;
+    min-height: 0;
+    /* <— Kinder dürfen schrumpfen */
+    overflow: hidden;
+}
+
+.sidepanel__trigger {
+    inline-size: 100%;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: .5rem 0;
+}
+
+.sidepanel__content {
+    max-height: 0;
+    overflow: clip;
+    transition: max-height .35s ease;
+}
+
+/* Close-Button oben rechts – nur bei geöffnetem Panel sichtbar */
+.sidepanel__close {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    background: none;
+    border: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: .8;
+}
+
+/* Wenn ein Panel geöffnet wird: Mitte verschwindet, rechte Spalte wird breit */
+/* Mitte weg, rechte Spalte wird breit */
+.page.--expand {
+    grid-template-columns: 1.5fr 0fr 2.4fr;
+}
+
+.page.--expand #info {
+    display: none;
+}
+
+/* Wrapper spannt auf die Spalten 2–3 */
+.page.--expand #weatherAndGenres {
+    grid-column: 2 / 4;
+}
+
+.sidepanel.--open .sidepanel__trigger {
+    writing-mode: horizontal-tb;
+    transform: none;
+    text-align: left;
+    padding: .25rem 2rem .5rem .25rem;
+}
+
+.sidepanel.--open .sidepanel__content {
+    max-height: 100vh;
+}
+
+.sidepanel.--open .sidepanel__close {
+    display: block;
+}
+
+/* Die nicht aktive Kachel im Expand-Zustand ausblenden */
+.page.--expand .sidewrap>.sidepanel:not(.--open) {
+    display: none;
+}
+
+/* Mobile bleibt wie gehabt (Stack) */
+@media (max-width: 768px) {
+    .page {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "left"
+            "middle"
+            "right";
+    }
+
+    .sidepanel__trigger {
+        writing-mode: horizontal-tb;
+        transform: none;
+    }
+
+    .page.--expand {
+        grid-template-columns: 1fr;
+    }
+
+    .page.--expand #info {
+        display: block;
+    }
+
+    /* Info bleibt auf Mobile sichtbar */
+    .page.--expand #weatherAndGenres {
+        grid-column: auto;
+    }
+
+    .sidepanel.--open {
+        grid-row: auto;
+    }
+
+    /* kein Über-Spannen nötig auf Mobile */
+    .page.--expand .sidewrap>.sidepanel:not(.--open) {
+        display: block;
+    }
+}
+
+/* Mobile-Default: Button sichtbar, Detailinfos versteckt */
+#info .detailinfo {
+    display: none;
+}
+
+#info .button {
+    display: inline-block;
+}
+
+/* Desktop: Detailinfos sichtbar, zweispaltig wie im Screen */
+@media (min-width: 992px) {
+    #info .button {
+        display: none;
+    }
+
+    #info .detailinfo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "methodik genres"
+            "wetter   entwicklung";
+        gap: var(--gap);
+        margin-top: 1rem;
+    }
+
+    /* Grid-Areas zuweisen */
+    #methodik {
+        grid-area: methodik;
+    }
+
+    #infoGenresByWeather {
+        grid-area: genres;
+    }
+
+    #weatherLastWeek {
+        grid-area: wetter;
+    }
+
+    #infoGenreDevelopment {
+        grid-area: entwicklung;
+    }
+
+    /* Optional: In der Info-Box einheitlicher Look (entfernt farbige Hintergründe der Unterblöcke) */
+    #info .detailinfo>section {
+        background: transparent;
+        padding: 0;
+    }
+
+    #info h2 {
+        color: var(--color-third);
+    }
+
+    #info p {
+        color: var(--color-dark);
+    }
+
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    /* wichtig für vh-Layout */
+    body {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 10vh 80vh 10vh;
+        /* Header / Main / Footer */
+    }
+
+    header {
+        /* Höhe kommt von der Grid-Zeile */
+        position: sticky;
+        top: 0;
+        /* darf bleiben, ist optional */
+        height: auto;
+        /* überschreibt frühere %-Höhe */
+    }
+
+    main.page {
+        height: 100%;
+        /* füllt die 80vh-Zeile komplett */
+        overflow: hidden;
+        /* verhindert, dass Inhalte die 80vh sprengen */
+        align-items: stretch;
+        /* sichert, dass Spalten die Höhe mitgehen */
+    }
+
+    /* rechter Wrapper soll die volle Main-Höhe nutzen und halb/halb teilen */
+    #weatherAndGenres.sidewrap {
+        height: 100%;
+        grid-template-rows: 1fr 1fr;
+        /* halb / halb */
+        min-height: 0;
+        /* kein Aufblasen */
+    }
+
+    /* Panels dürfen schrumpfen und scrollen intern bei Bedarf */
+    .sidepanel {
+        min-height: 0;
+    }
+
+    .sidepanel__content {
+        overflow: auto;
+    }
+
+    
+}
+
 
 .chart-tooltip {
     position: absolute;
