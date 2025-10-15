@@ -62,12 +62,12 @@ header a {
     font-size: 50px;
     color: var(--color-light);
     text-shadow:
-        0 0 5px #FF19E7,
-        0 0 10px #FF19E7,
-        0 0 20px #FF19E7,
-        0 0 40px #FF19E7,
-        0 0 60px #FF19E7;
-    animation: flicker 2s infinite;
+        0 0 3px #ff19e881,
+        0 0 6px #ff19e877,
+        0 0 12px #ff19e876,
+        0 0 15px rgba(255, 25, 231, 0.2),
+        0 0 25px rgba(255, 25, 231, 0.1);
+    animation: flicker 3s infinite; /* langsamer und ruhiger */
 }
 
 #info {
@@ -154,29 +154,21 @@ h2 {
 
 /* Animation für flackerndes Neonlicht */
 @keyframes flicker {
-
-    0%,
-    19%,
-    21%,
-    23%,
-    25%,
-    54%,
-    56%,
-    100% {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
         opacity: 1;
         text-shadow:
-            0 0 5px #FF19E7,
-            0 0 5px #FF19E7,
-            0 0 10px #FF19E7,
-            0 0 30px #FF19E7,
-            0 0 60px #FF19E7;
+            0 0 3px #ff19e881,
+            0 0 6px #ff19e877,
+            0 0 12px #ff19e876,
+            0 0 25px rgba(255, 25, 231, 0.2),
+            0 0 40px rgba(255, 25, 231, 0.1);
     }
 
-    20%,
-    24%,
-    55% {
-        opacity: 0.6;
-        text-shadow: none;
+    20%, 24%, 55% {
+        opacity: 0.85; /* statt 0.6 – nicht ganz aus */
+        text-shadow:
+            0 0 2px rgba(255, 25, 231, 0.4),
+            0 0 5px rgba(255, 25, 231, 0.3);
     }
 }
 
@@ -448,12 +440,16 @@ h2 {
     }
 
     header {
-        /* Höhe kommt von der Grid-Zeile */
-        position: sticky;
-        top: 0;
-        /* darf bleiben, ist optional */
-        height: auto;
-        /* überschreibt frühere %-Höhe */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo {
+        padding-top: 35px;
+        font-size: 35px;
+        margin: 0 auto;
+        text-align: center;
     }
 
     main.page {
