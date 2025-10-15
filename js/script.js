@@ -5,6 +5,8 @@ const top_genres_per_weather_url = unload_url + "top_genres_per_weather.php";
 const unique_dates_url = unload_url + "unique_dates.php";
 const weather_last_week_url = unload_url + "weather_last_week.php";
 
+const color_dark = "#340043";
+
 function darkenHexColor(hex, percent = 3) {
     // Prozent in einen Faktor umwandeln (z. B. 10% → 0.9)
     const factor = 1 - percent / 100;
@@ -213,4 +215,55 @@ function generateGenresWithWeatherDataChart() {
 
     return config;
 }
+
+function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather[0].top_genres) {
+    let labels = [];
+    top_genres.forEach(genre => labels.push(genre.name));
+
+    let anzahl = [];
+    top_genres.forEach(genre => anzahl.push(genre.anzahl));
+
+    const data = {
+        labels: labels,
+        datasets: [
+            {
+                label: "Anzahl Streams",
+                data: anzahl,
+                borderColor: "#340043",
+                backgroundColor: "#340043",
+            }
+        ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            indexAxis: "y",
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Chart.js Bar Chart'
+                }
+            }
+        },
+    };
+
+    return config;
+}
+
+new Chart(document.querySelector("#topGenresPerWeatherChart"), generateTopGenresPerWeatherChart());
 new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
+
+const weatherButtons = document.querySelectorAll('.weather-btn');
+
+weatherButtons.forEach(btn => {
+    const weatherType = btn.dataset.weather;
+    btn.addEventListener('click', () => {
+        console.log(`Klick auf: ${weatherType}`);
+    });
+});

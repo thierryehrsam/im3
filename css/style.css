@@ -67,7 +67,8 @@ header a {
         0 0 12px #ff19e876,
         0 0 15px rgba(255, 25, 231, 0.2),
         0 0 25px rgba(255, 25, 231, 0.1);
-    animation: flicker 3s infinite; /* langsamer und ruhiger */
+    animation: flicker 3s infinite;
+    /* langsamer und ruhiger */
 }
 
 #info {
@@ -154,7 +155,14 @@ h2 {
 
 /* Animation für flackerndes Neonlicht */
 @keyframes flicker {
-    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+    0%,
+    18%,
+    22%,
+    25%,
+    53%,
+    57%,
+    100% {
         opacity: 1;
         text-shadow:
             0 0 3px #ff19e881,
@@ -164,8 +172,11 @@ h2 {
             0 0 40px rgba(255, 25, 231, 0.1);
     }
 
-    20%, 24%, 55% {
-        opacity: 0.85; /* statt 0.6 – nicht ganz aus */
+    20%,
+    24%,
+    55% {
+        opacity: 0.85;
+        /* statt 0.6 – nicht ganz aus */
         text-shadow:
             0 0 2px rgba(255, 25, 231, 0.4),
             0 0 5px rgba(255, 25, 231, 0.3);
@@ -281,8 +292,8 @@ h2 {
     grid-row: 1 / -1;
     /* spannt von oberster bis unterster Zeile */
     height: 100%;
-      display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Wenn ein Panel geöffnet wird: Mitte verschwindet, rechte Spalte wird breit */
@@ -300,31 +311,35 @@ h2 {
     grid-column: 2 / 4;
 }
 
-.sidepanel.--open h2{
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  margin: 0;
-  padding: .5rem 2rem .75rem .25rem; /* Platz im Header */
-  background: inherit;               /* damit Chart nicht „durchscheint“ */
+.sidepanel.--open h2 {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    margin: 0;
+    padding: .5rem 2rem .75rem .25rem;
+    /* Platz im Header */
+    background: inherit;
+    /* damit Chart nicht „durchscheint“ */
 }
 
 .sidepanel.--open .sidepanel__trigger {
-  position: static;
-  display: inline-flex;
-  block-size: auto !important;  /* überschreibt evtl. alte 100%-Höhen */
-  align-items: center;
-  justify-content: flex-start;
-  writing-mode: horizontal-tb;
-  transform: none;
-  padding: 0;
+    position: static;
+    display: inline-flex;
+    block-size: auto !important;
+    /* überschreibt evtl. alte 100%-Höhen */
+    align-items: center;
+    justify-content: flex-start;
+    writing-mode: horizontal-tb;
+    transform: none;
+    padding: 0;
 }
 
 .sidepanel.--open .sidepanel__content {
-  flex: 1 1 auto;
-  min-height: 0;
-  overflow: auto;
-  max-height: none; /* überschreibt deine 100vh-Begrenzung */
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+    max-height: none;
+    /* überschreibt deine 100vh-Begrenzung */
 }
 
 .sidepanel.--open .sidepanel__close {
@@ -566,4 +581,35 @@ h2 {
     font-size: 16px;
     color: white;
     text-align: center;
+}
+
+.weather-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.weather-btn {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: box-shadow 0.2s ease;
+}
+
+.weather-btn:hover {
+    box-shadow: 0 0 12px var(--color-light);
+}
+
+.weather-btn:active {
+    box-shadow: 0 0 24px var(--color-light);
+}
+
+.weather-btn img {
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    /* wichtig, damit der Klick auf das div reagiert, nicht das Bild */
 }
