@@ -651,3 +651,38 @@ h2 {
 .rechts {
     float: right;
 }
+
+.weather-nav {
+    display: flex;
+    gap: 20px;
+    overflow: visible;
+    height: 80px;
+}
+
+.weather-btn {
+    width: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+    overflow: visible;
+}
+
+.weather-btn img {
+    transition: 0.2s ease;
+}
+
+.weather-btn:hover img {
+    filter: drop-shadow(0 0 5px var(--color-light));
+}
+
+.weather-btn.active img {
+    filter: drop-shadow(0 0 10px var(--color-light));
+}
+
+.weather-btn img {
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    overflow: visible;
+}

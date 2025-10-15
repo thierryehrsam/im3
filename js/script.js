@@ -247,7 +247,7 @@ function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather[0]
                 },
                 title: {
                     display: true,
-                    text: 'Chart.js Bar Chart'
+                    text: 'Top Genres'
                 }
             }
         },
@@ -256,8 +256,22 @@ function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather[0]
     return config;
 }
 
-new Chart(document.querySelector("#topGenresPerWeatherChart"), generateTopGenresPerWeatherChart());
+let topGenresChart = new Chart(document.querySelector("#topGenresPerWeatherChart"), generateTopGenresPerWeatherChart());
 new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
+
+function updateTopGenresPerWeatherChart(weatherCode) {
+    // Beispiel: die passenden Daten aus deinem Array holen
+    const wetterObjekt = top_genres_per_weather.find(entry => entry.wetter_code === weatherCode);
+    const top_genres = wetterObjekt.top_genres;
+
+    // Labels und Daten neu setzen
+    topGenresChart.data.labels = top_genres.map(g => g.name);
+    topGenresChart.data.datasets[0].data = top_genres.map(g => g.anzahl);
+
+    // Chart aktualisieren
+    topGenresChart.update();
+}
+
 
 const weatherButtons = document.querySelectorAll('.weather-btn');
 
@@ -265,5 +279,9 @@ weatherButtons.forEach(btn => {
     const weatherType = btn.dataset.weather;
     btn.addEventListener('click', () => {
         console.log(`Klick auf: ${weatherType}`);
+        updateTopGenresPerWeatherChart($weatherType);
+        weatherButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
     });
 });
