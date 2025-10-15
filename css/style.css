@@ -540,3 +540,28 @@ h2 {
 .chart-tooltip .temps .min {
     color: var(--color-grey);
 }
+
+#weatherLastWeek {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.weatherDay {
+    display: block;
+
+}
+
+.weatherIcon {
+    width: 40px;
+    /* oder was zu deinem Layout passt */
+    color: var(--color-third);
+}
+
+.dayLabel {
+    font-size: 18px;
+    color: #FFFFFF;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
