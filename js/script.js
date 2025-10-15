@@ -70,6 +70,58 @@ console.log(weather_last_week);
 const filtered_dates = unique_dates.slice(0, -1);
 let datasets = [];
 
+function renderTopGenres(genres) {
+    const container = document.getElementById("topGenresLastWeek");
+
+    genres.forEach((genre, index) => {
+        const li = document.createElement("li");
+        // das <li> selbst behält die Schriftart von .topNumber
+
+        // span für das Genre
+        const span = document.createElement("span");
+        span.classList.add(`genre1`);
+        span.textContent = " " + genre; // Leerzeichen hinter Zahl
+
+        li.appendChild(span);
+        container.appendChild(li);
+    });
+}
+
+function renderWeatherLastWeek(data) {
+    const container = document.getElementById("weatherLastWeek");
+    container.innerHTML = "";
+
+    const tage = ["MO", "DI", "MI", "DO", "FR", "SA", "SO"];
+
+    data.forEach((entry, index) => {
+        const wetterCode = entry.wetter_code;
+        const day = tage[index];
+
+        // Wrapper für einen Tag
+        const dayDiv = document.createElement("div");
+        dayDiv.classList.add("weatherDay");
+
+        // Icon-Container mit Text *innen drin*
+        const iconDiv = document.createElement("div");
+        iconDiv.classList.add("weatherIcon");
+        iconDiv.style.backgroundImage = `url('../images/${wetterCode}_third.svg')`;
+
+        const label = document.createElement("span");
+        label.textContent = day;
+        label.classList.add("dayLabel");
+
+        iconDiv.appendChild(label);
+        dayDiv.appendChild(iconDiv);
+        container.appendChild(dayDiv);
+    });
+}
+
+
+renderWeatherLastWeek(weather_last_week);
+renderTopGenres(top_genres_last_week);
+
+
+
 function generateGenresWithWeatherDataChart() {
     genres_with_weather_data.forEach((genre) => {
         const wetterMap = new Map(genre.weather_data.map(w => [w.datum, w]));
@@ -161,55 +213,4 @@ function generateGenresWithWeatherDataChart() {
 
     return config;
 }
-
-function renderTopGenres(genres) {
-    const container = document.getElementById("topGenresLastWeek");
-
-    genres.forEach((genre, index) => {
-        const li = document.createElement("li");
-        // das <li> selbst behält die Schriftart von .topNumber
-
-        // span für das Genre
-        const span = document.createElement("span");
-        span.classList.add(`genre1`);
-        span.textContent = " " + genre; // Leerzeichen hinter Zahl
-
-        li.appendChild(span);
-        container.appendChild(li);
-    });
-}
-
-function renderWeatherLastWeek(data) {
-    const container = document.getElementById("weatherLastWeek");
-    container.innerHTML = "";
-
-    const tage = ["MO", "DI", "MI", "DO", "FR", "SA", "SO"];
-
-    data.forEach((entry, index) => {
-        const wetterCode = entry.wetter_code;
-        const day = tage[index];
-
-        // Wrapper für einen Tag
-        const dayDiv = document.createElement("div");
-        dayDiv.classList.add("weatherDay");
-
-        // Icon-Container mit Text *innen drin*
-        const iconDiv = document.createElement("div");
-        iconDiv.classList.add("weatherIcon");
-        iconDiv.style.backgroundImage = `url('../images/${wetterCode}_third.svg')`;
-
-        const label = document.createElement("span");
-        label.textContent = day;
-        label.classList.add("dayLabel");
-
-        iconDiv.appendChild(label);
-        dayDiv.appendChild(iconDiv);
-        container.appendChild(dayDiv);
-    });
-}
-
-
-renderWeatherLastWeek(weather_last_week);
-renderTopGenres(top_genres_last_week);
-
-new Chart(document.querySelector("#sampleChart"), generateGenresWithWeatherDataChart());
+new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
