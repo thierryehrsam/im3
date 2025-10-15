@@ -20,6 +20,9 @@
 body {
     font-family: 'League Gothic';
     background-color: var(--color-dark);
+    background-image: url(../images/musicnotes.png);
+    background-size: contain;
+    background-repeat: repeat;
 }
 
 .third {
