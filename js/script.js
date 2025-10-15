@@ -163,19 +163,24 @@ function generateGenresWithWeatherDataChart() {
 }
 
 function renderTopGenres(genres) {
-    const container = document.getElementById("top5LastWeek");
+    const container = document.getElementById("topGenresLastWeek");
+    if (!container) return;
+    container.innerHTML = "";
 
     genres.forEach((genre, index) => {
-        const number = index + 1;
-        const h3 = document.createElement("h3");
-        h3.classList.add("topNumber");
+        const li = document.createElement("li");
+        // das <li> selbst behält die Schriftart von .topNumber
 
-        // HTML-Struktur einfügen
-        h3.innerHTML = `${number}. <span class="genre1">${genre}</span>`;
+        // span für das Genre
+        const span = document.createElement("span");
+        span.classList.add(`genre1`);
+        span.textContent = " " + genre; // Leerzeichen hinter Zahl
 
-        container.appendChild(h3);
+        li.appendChild(span);
+        container.appendChild(li);
     });
 }
+
 
 // Beispielaufruf mit API-Daten:
 renderTopGenres(top_genres_last_week);

@@ -40,6 +40,7 @@ body {
     color: var(--color-third);
     margin: 0;
     line-height: 0.7;
+    list-style-position: inside;
 }
 
 header {
