@@ -146,6 +146,16 @@ function renderWeatherLastWeek(data) {
 renderWeatherLastWeek(weather_last_week);
 renderTopGenres(top_genres_last_week);
 
+function getDynamicAspectRatio() {
+    const width = window.innerWidth;
+
+    if (width <= 600) return 0.75;
+    if (width >= 1200) return 2;
+
+    // Linear interpolieren (zwischen 0.75 und 1.5)
+    const ratio = 0.75 + ((width - 600) / (1200 - 600)) * (2 - 0.75);
+    return ratio;
+}
 
 
 function generateGenresWithWeatherDataChart() {
@@ -179,6 +189,7 @@ function generateGenresWithWeatherDataChart() {
         data,
         options: {
             responsive: true,
+            aspectRatio: getDynamicAspectRatio(),
             plugins: {
                 legend: { position: 'top' },
                 title: { display: true, text: 'Wetterdaten' },
@@ -240,7 +251,7 @@ function generateGenresWithWeatherDataChart() {
     return config;
 }
 
-function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather[0].top_genres) {
+function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather.find(entry => entry.wetter_code === "sonnig").top_genres) {
     let labels = [];
     top_genres.forEach(genre => labels.push(genre.name));
 
@@ -264,6 +275,7 @@ function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather[0]
         data: data,
         options: {
             responsive: true,
+            aspectRatio: getDynamicAspectRatio(),
             indexAxis: "y",
             plugins: {
                 legend: {
@@ -281,7 +293,7 @@ function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather[0]
 }
 
 let topGenresChart = new Chart(document.querySelector("#topGenresPerWeatherChart"), generateTopGenresPerWeatherChart());
-new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
+let genreDevelopmentChart = new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
 
 function updateTopGenresPerWeatherChart(weatherCode) {
     // Beispiel: die passenden Daten aus deinem Array holen
@@ -320,4 +332,13 @@ weatherButtons.forEach(btn => {
         btn.classList.add('active');
 
     });
+});
+
+window.addEventListener('resize', () => {
+    const newRatio = getDynamicAspectRatio();
+    topGenresChart.options.aspectRatio = newRatio;
+    topGenresChart.update();
+
+    genreDevelopmentChart.options.aspectRatio = newRatio;
+    genreDevelopmentChart.update();
 });
