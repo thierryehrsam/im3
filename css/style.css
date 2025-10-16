@@ -15,6 +15,7 @@
     --color-pink: #D376D5;
     --color-lila: #8D6DFF;
     --color-background-grey: #CCBFD0;
+    --color-dark-grey: #242424;
 }
 
 body {
@@ -431,7 +432,7 @@ h2 {
     }
 
     header {
-    background-color: #350043ee;
+        background-color: #350043ee;
     }
 }
 
@@ -584,7 +585,7 @@ h2 {
 }
 
 .chart-tooltip .date {
-    font-size: 1.4rem;
+    font-size: 24px;
     font-weight: 700;
     margin-bottom: 4px;
 }
@@ -596,7 +597,7 @@ h2 {
 }
 
 .chart-tooltip .temps {
-    font-size: 1.1rem;
+    font-size: 18px;
     font-weight: 600;
     display: flex;
     flex-direction: column;
@@ -607,7 +608,7 @@ h2 {
 }
 
 .chart-tooltip .temps .min {
-    color: var(--color-grey);
+    color: var(--color-dark-grey);
 }
 
 #weatherLastWeek {
