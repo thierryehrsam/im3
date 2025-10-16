@@ -47,7 +47,6 @@ body {
 }
 
 header {
-    background-color: var(--color-dark);
     position: sticky;
     top: 0;
     height: 10%;
@@ -96,7 +95,6 @@ header a {
 }
 
 #top5LastWeek {
-    background-color: var(--color-dark);
     color: var(--color-light);
     padding: 20px;
 }
@@ -120,7 +118,6 @@ header a {
 }
 
 footer {
-    background-color: var(--color-dark);
     color: var(--color-light);
     text-align: center;
     padding: 10px;
@@ -431,6 +428,10 @@ h2 {
     /* kein Über-Spannen nötig auf Mobile */
     .page.--expand .sidewrap>.sidepanel:not(.--open) {
         display: block;
+    }
+
+    header {
+    background-color: #350043ee;
     }
 }
 
