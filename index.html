@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>Metabeats</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=League+Gothic&family=Lily+Script+One&family=Micro+5&display=swap');
@@ -42,7 +43,7 @@
                 die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
             <a href="info.html" class="button">Weitere Infos</a>
 
-            <section class="detailinfo">
+            <div class="detailinfo">
                 <section id="info_methodik">
                     <h2 class="title third">Methodik</h2>
                     <p class="text">Zum Zeitpunkt der Abgabe des UX sind die Methodik zur Datenerhebung und die genauen Berechnungen
@@ -51,7 +52,7 @@
 
                 <section id="info_weatherLastWeek">
                     <h2 class="title light">Wetter letzte Woche</h2>
-                    <p class="text">In diesem Abschnitt ist das Wetter der letzten Woche (Durchschnittswert und einzelne Tage)
+                    <p class="text">In diesem Abschnitt ist das Wetter der letzten Woche (einzelne Tage)
                         angezeigt. Dazu werden die 5 meistgehörten Genre der letzten Woche aufgelistet.</p>
                 </section>
 
@@ -68,11 +69,11 @@
                         jeweiligen Tag eingeblendet.</p>
 
                 </section>
-            </section>
+            </div>
 
         </section>
 
-        <section id="weatherAndGenres" class="sidewrap" data-wrapper>
+        <div id="weatherAndGenres" class="sidewrap" data-wrapper>
             <!-- SPALTE 3A: Panel 1 (schmal, nur Titel sichtbar – Klick öffnet) -->
             <section id="genresByWeather" class="card sidepanel" data-panel>
                 <h2>
@@ -84,16 +85,16 @@
                 <div id="genresByWeatherContent" class="sidepanel__content" hidden>
                     <div class="weather-nav">
                         <div class="weather-btn active" data-weather="sonnig">
-                            <img src="../images/sonnig.svg" alt="Sonnig" />
+                            <img src="../images/sonnig.svg" alt="Sonnig">
                         </div>
                         <div class="weather-btn" data-weather="bewoelkt">
-                            <img src="../images/bewoelkt.svg" alt="Bewölkt" />
+                            <img src="../images/bewoelkt.svg" alt="Bewölkt">
                         </div>
                         <div class="weather-btn" data-weather="regen">
-                            <img src="../images/regen.svg" alt="Regen" />
+                            <img src="../images/regen.svg" alt="Regen">
                         </div>
                         <div class="weather-btn" data-weather="schnee">
-                            <img src="../images/schnee.svg" alt="Schnee" />
+                            <img src="../images/schnee.svg" alt="Schnee">
                         </div>
                     </div>
                     <canvas id="topGenresPerWeatherChart"></canvas>
@@ -112,7 +113,7 @@
                     <canvas id="genreDevelopmentChart"></canvas>
                 </div>
             </section>
-        </section>
+        </div>
 
     </main>
 
