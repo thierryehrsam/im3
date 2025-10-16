@@ -16,6 +16,14 @@
     --color-lila: #8D6DFF;
     --color-background-grey: #CCBFD0;
     --color-dark-grey: #242424;
+    --main-w: 300px;
+    --main-h: 200px;
+    --collapsed: 0.2;
+    --gap: 24px;
+    --border-radius: 16px;
+    --dur-move: 400ms;
+    --dur-scale: 400ms;
+    --ease: cubic-bezier(.25, .8, .25, 1);
 }
 
 body {
@@ -88,13 +96,6 @@ header a {
     /* langsamer und ruhiger */
 }
 
-
-#info {
-    background-color: var(--color-light);
-    color: var(--color-dark);
-    padding: 20px;
-}
-
 #top5LastWeek {
     color: var(--color-light);
     padding: 20px;
@@ -156,28 +157,28 @@ h2 {
     transition: background-color 0.3s ease;
 }
 
+.detailinfo section {
+    padding: 20px;
+}
+
 #info_methodik {
     background-color: var(--color-light);
     color: var(--color-dark);
-    padding: 20px;
 }
 
 #info_weatherLastWeek {
     background-color: var(--color-dark);
     color: var(--color-third);
-    padding: 20px;
 }
 
 #info_GenresByWeather {
     background-color: var(--color-third);
     color: var(--color-dark);
-    padding: 20px;
 }
 
 #info_GenreDevelopment {
     background-color: var(--color-background-grey);
     color: var(--color-dark);
-    padding: 20px;
 }
 
 /* Animation für flackerndes Neonlicht */
@@ -219,7 +220,7 @@ h2 {
 .page {
     display: grid;
     gap: var(--gap);
-    grid-template-columns: 1.5fr 2fr minmax(var(--side-collapsed), 0.2fr);
+    grid-template-columns: 1.5fr 2.2fr;
     grid-template-areas: "left middle right";
     /* <— nur EINE Zeile */
     grid-template-rows: auto;
@@ -227,7 +228,6 @@ h2 {
     align-items: stretch;
     /* Panels dürfen die Reihe ausfüllen */
     transition: grid-template-columns .35s ease;
-    padding: 0 20px;
     /* optionaler Innenabstand */
 }
 
@@ -237,10 +237,6 @@ h2 {
 
 #top5LastWeek {
     grid-area: left;
-}
-
-#info {
-    grid-area: middle;
 }
 
 /* Der Wrapper füllt die volle Höhe der rechten Spalte und teilt sie 1/1 */
@@ -253,10 +249,6 @@ h2 {
     /* füllt die Höhe der einzigen Page-Reihe */
     min-height: 0;
     /* <— wichtig gegen „Aufblasen“ */
-}
-
-.card {
-    border-radius: 12px;
 }
 
 /* Rechte Spalte: standardmässig schmal, nur Titel sichtbar */
@@ -437,129 +429,12 @@ h2 {
 }
 
 /* Mobile-Default: Button sichtbar, Detailinfos versteckt */
-#info .detailinfo {
+.detailinfo {
     display: none;
 }
 
-#info .button {
+.button {
     display: inline-block;
-}
-
-/* Desktop: Detailinfos sichtbar, zweispaltig wie im Screen */
-@media (min-width: 992px) {
-    #info .button {
-        display: none;
-    }
-
-    #info .detailinfo {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "methodik genres"
-            "wetter   entwicklung";
-        gap: var(--gap);
-        margin-top: 1rem;
-    }
-
-    /* Grid-Areas zuweisen */
-    #info_methodik {
-        grid-area: methodik;
-    }
-
-    #info_GenresByWeather {
-        grid-area: genres;
-    }
-
-    #info_weatherLastWeek {
-        grid-area: wetter;
-    }
-
-    #info_GenreDevelopment {
-        grid-area: entwicklung;
-    }
-
-    /* Optional: In der Info-Box einheitlicher Look (entfernt farbige Hintergründe der Unterblöcke) */
-    #info .detailinfo>section {
-        background: transparent;
-        padding: 0;
-    }
-
-    #info h2 {
-        color: var(--color-third);
-    }
-
-    #info p {
-        color: var(--color-dark);
-    }
-
-
-    html,
-    body {
-        height: 100%;
-    }
-
-    /* wichtig für vh-Layout */
-    body {
-        min-height: 100vh;
-        display: grid;
-        grid-template-rows: 10vh 80vh 10vh;
-        /* Header / Main / Footer */
-    }
-
-    header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .logo {
-        padding-top: 35px;
-        font-size: 35px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .logo:hover {
-        font-size: 35px;
-        color: var(--color-third);
-        text-shadow:
-            0 0 3px var(--color-third),
-            0 0 6px var(--color-third),
-            0 0 12px var(--color-third),
-            0 0 15px rgba(25, 228, 255, 0.2),
-            0 0 25px rgba(25, 205, 255, 0.1);
-        animation: flicker 3s infinite;
-        /* langsamer und ruhiger */
-    }
-
-    main.page {
-        height: 100%;
-        /* füllt die 80vh-Zeile komplett */
-        overflow: hidden;
-        /* verhindert, dass Inhalte die 80vh sprengen */
-        align-items: stretch;
-        /* sichert, dass Spalten die Höhe mitgehen */
-    }
-
-    /* rechter Wrapper soll die volle Main-Höhe nutzen und halb/halb teilen */
-    #weatherAndGenres.sidewrap {
-        height: 100%;
-        grid-template-rows: 1fr 1fr;
-        /* halb / halb */
-        min-height: 0;
-        /* kein Aufblasen */
-    }
-
-    /* Panels dürfen schrumpfen und scrollen intern bei Bedarf */
-    .sidepanel {
-        min-height: 0;
-    }
-
-    .sidepanel__content {
-        overflow: auto;
-    }
-
-
 }
 
 
@@ -691,4 +566,293 @@ h2 {
     height: auto;
     pointer-events: none;
     overflow: visible;
+}
+
+
+.wrap {
+    position: relative;
+}
+
+/* Hauptbox */
+.main-box {
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: var(--border-radius);
+    z-index: 1;
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 20px;
+    height: 100%;
+    width: 87%;
+}
+
+/* Seitenboxen */
+.side-box {
+    position: absolute;
+    left: calc(87% + var(--gap));
+    width: 80px;
+    height: 49%;
+    border-radius: var(--border-radius);
+    color: #fff;
+    cursor: pointer;
+    overflow: hidden;
+    transition:
+        left var(--dur-move) var(--ease),
+        width var(--dur-move) var(--ease),
+        height var(--dur-scale) var(--ease),
+        border-radius var(--dur-scale) var(--ease);
+    z-index: 3;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Normaler Text (sichtbar, wenn offen) */
+.side-box__text {
+    opacity: 0;
+    transition: opacity 250ms ease;
+    text-align: center;
+    padding: 16px;
+    user-select: none;
+    pointer-events: none;
+}
+
+.side-box.show-text .side-box__text {
+    opacity: 1;
+}
+
+/* Vertikaler Titel (sichtbar, wenn geschlossen) */
+.side-box__label {
+    position: absolute;
+    transition: opacity 300ms ease;
+    transform-origin: center;
+    white-space: nowrap;
+    user-select: none;
+}
+
+/* Positionierung & Rotation */
+.side-box__label.vertical {
+    /* innerhalb der side-box zentrieren */
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    writing-mode: vertical-rl;
+    /* Text vertikal setzen */
+    transform: rotate(180deg);
+    /* Lesrichtung von unten nach oben korrigieren */
+    pointer-events: none;
+    /* Klicks gehen an die Box, nicht den Text */
+}
+
+/* Wenn Box offen → Label ausblenden */
+.side-box.open .side-box__label {
+    opacity: 0;
+}
+
+/* Farben */
+.side-box.top {
+    background: var(--color-third);
+    top: 0;
+}
+
+.side-box.bottom {
+    background: var(--color-background-grey);
+    bottom: 0;
+}
+
+/* Animation Desktop */
+.side-box.open.move {
+    left: 0;
+    width: 87%;
+}
+
+.side-box.open.expand-top,
+.side-box.open.expand-bottom {
+    height: 100%;
+    border-radius: var(--border-radius);
+}
+
+/* 📱 Mobile Layout */
+@media (max-width: 767px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f7f8fb;
+        padding: 20px;
+    }
+
+    .wrap {
+        all: unset;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        max-width: 360px;
+    }
+
+    .main-box,
+    .side-box {
+        position: static;
+        width: 100%;
+        height: var(--main-h);
+        border-radius: var(--radius);
+        transition: none;
+        cursor: default;
+    }
+
+    .side-box {
+        pointer-events: none;
+    }
+
+    .side-box__text {
+        opacity: 1;
+    }
+
+    .side-box__label {
+        display: none;
+    }
+
+    .side-box.top,
+    .side-box.bottom {
+        height: calc(var(--main-h) * 1.1);
+    }
+}
+
+/* Desktop: Detailinfos sichtbar, zweispaltig wie im Screen */
+@media (min-width: 992px) {
+    .button {
+        display: none;
+    }
+
+    .detailinfo {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "methodik genres"
+            "wetter   entwicklung";
+        gap: var(--gap);
+        margin-top: 1rem;
+    }
+
+    /* Grid-Areas zuweisen */
+    #info_methodik {
+        background-color: transparent;
+        grid-area: methodik;
+    }
+
+    #info_GenresByWeather {
+        background-color: transparent;
+        grid-area: genres;
+    }
+
+    #info_weatherLastWeek {
+        background-color: transparent;
+        grid-area: wetter;
+    }
+
+    #info_GenreDevelopment {
+        background-color: transparent;
+        grid-area: entwicklung;
+    }
+
+    /* Optional: In der Info-Box einheitlicher Look (entfernt farbige Hintergründe der Unterblöcke) */
+    .detailinfo section {
+        background: transparent;
+        padding: 0;
+    }
+
+    .detailinfo section h2 {
+        color: var(--color-third);
+    }
+
+    p {
+        color: var(--color-dark);
+    }
+
+
+    html,
+    body {
+        height: 100%;
+    }
+
+    /* wichtig für vh-Layout */
+    body {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: 10vh 80vh 10vh;
+        /* Header / Main / Footer */
+    }
+
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .logo {
+        padding-top: 35px;
+        font-size: 35px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .logo:hover {
+        font-size: 35px;
+        color: var(--color-third);
+        text-shadow:
+            0 0 3px var(--color-third),
+            0 0 6px var(--color-third),
+            0 0 12px var(--color-third),
+            0 0 15px rgba(25, 228, 255, 0.2),
+            0 0 25px rgba(25, 205, 255, 0.1);
+        animation: flicker 3s infinite;
+        /* langsamer und ruhiger */
+    }
+
+    main.page {
+        height: 100%;
+        /* füllt die 80vh-Zeile komplett */
+        overflow: hidden;
+        /* verhindert, dass Inhalte die 80vh sprengen */
+        align-items: stretch;
+        /* sichert, dass Spalten die Höhe mitgehen */
+    }
+
+    /* rechter Wrapper soll die volle Main-Höhe nutzen und halb/halb teilen */
+    #weatherAndGenres.sidewrap {
+        height: 100%;
+        grid-template-rows: 1fr 1fr;
+        /* halb / halb */
+        min-height: 0;
+        /* kein Aufblasen */
+    }
+
+    /* Panels dürfen schrumpfen und scrollen intern bei Bedarf */
+    .sidepanel {
+        min-height: 0;
+    }
+
+    .sidepanel__content {
+        overflow: auto;
+    }
+
+
+}
+
+/* Grundzustand (geschlossen): OK, keine internen Klicks nötig */
+.side-box__text {
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Offen: Inhalte müssen klickbar sein (Charts, Buttons, „×“) */
+.side-box.open .side-box__text {
+    pointer-events: auto;
+}
+
+/* Label soll NIE Klicks abfangen */
+.side-box__label {
+    pointer-events: none;
 }

@@ -33,48 +33,86 @@
             <!-- <h3 class="topNumber">1. <span class="genre1">Pop</span></h3> -->
             <!-- … dein bestehender Inhalt hier … -->
         </section>
+        <div class="wrap">
+            <section class="main-box">
+                <h2>So funktioniert's</h2>
+                <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat.
+                    Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus
+                    die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind
+                    die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
+                <a href="info.html" class="button">Weitere Infos</a>
 
+                <div class="detailinfo">
+                    <section id="info_methodik">
+                        <h2 class="third">Methodik</h2>
+                        <p class="text">Zum Zeitpunkt der Abgabe des UX sind die Methodik zur Datenerhebung und die genauen Berechnungen
+                            noch nicht definiert. In diesem Bereich würde dies zur Nachvollziehbarkeit im Detail beschrieben werden.</p>
+                    </section>
+
+                    <section id="info_weatherLastWeek">
+                        <h2 class="light">Wetter letzte Woche</h2>
+                        <p class="text">In diesem Abschnitt ist das Wetter der letzten Woche (einzelne Tage)
+                            angezeigt. Dazu werden die 5 meistgehörten Genre der letzten Woche aufgelistet.</p>
+                    </section>
+
+                    <section id="info_GenresByWeather">
+                        <h2 class="light">Top Genres nach Wetter</h2>
+                        <p class="text">In diesem Abschnitt werden die meistgehörten Genres der letzten Woche in Bezug auf das Wetter
+                            angezeigt. Dazu werden die Wetterdaten mit den gehörten Genres kombiniert und analysiert.</p>
+                    </section>
+
+                    <section id="info_GenreDevelopment">
+                        <h2 class="light">Entwicklung Genre-Beliebtheit</h2>
+                        <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im Verhältnis zu
+                            den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die Wetter-Verhältnisse am
+                            jeweiligen Tag eingeblendet.</p>
+
+                    </section>
+            </section>
+            <section class="side-box top" id="topBox">
+                <h2 class="side-box__label vertical light">Top Genres nach Wetter</h2>
+                <div class="side-box__text">
+                    <h2 class="light">Top Genres nach Wetter</h2>
+                    <button class="sidepanel__close" type="button" aria-label="Schliessen">×</button>
+                    <div class="weather-nav">
+                        <div class="weather-btn active" data-weather="sonnig">
+                            <img src="../images/sonnig.svg" alt="Sonnig">
+                        </div>
+                        <div class="weather-btn" data-weather="bewoelkt">
+                            <img src="../images/bewoelkt.svg" alt="Bewölkt">
+                        </div>
+                        <div class="weather-btn" data-weather="regen">
+                            <img src="../images/regen.svg" alt="Regen">
+                        </div>
+                        <div class="weather-btn" data-weather="schnee">
+                            <img src="../images/schnee.svg" alt="Schnee">
+                        </div>
+                    </div>
+                    <canvas id="topGenresPerWeatherChart"></canvas>
+                </div>
+            </section>
+            <section class="side-box bottom" id="bottomBox">
+                <h2 class="side-box__label vertical light">Entwicklung Genre Beliebtheit</h2>
+                <div class="side-box__text">
+                    <div class="box-header">
+                        <h2 class="light">Entwicklung Genre Beliebtheit</h2>
+                        <button class="sidepanel__close" type="button" aria-label="Schliessen">×</button>
+                    </div>
+                    <canvas id="genreDevelopmentChart"></canvas>
+                </div>
+            </section>
+        </div>
+
+        </div>
         <!-- SPALTE 2: Infotexte -->
-        <section id="info" class="card" aria-label="Infotexte">
-            <h2 class="title">So funktioniert's</h2>
-            <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat.
-                Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus
-                die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind
-                die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
-            <a href="info.html" class="button">Weitere Infos</a>
+        <!-- <section id="info" class="card" aria-label="Infotexte">
+            
 
-            <div class="detailinfo">
-                <section id="info_methodik">
-                    <h2 class="title third">Methodik</h2>
-                    <p class="text">Zum Zeitpunkt der Abgabe des UX sind die Methodik zur Datenerhebung und die genauen Berechnungen
-                        noch nicht definiert. In diesem Bereich würde dies zur Nachvollziehbarkeit im Detail beschrieben werden.</p>
-                </section>
+        </section> -->
 
-                <section id="info_weatherLastWeek">
-                    <h2 class="title light">Wetter letzte Woche</h2>
-                    <p class="text">In diesem Abschnitt ist das Wetter der letzten Woche (einzelne Tage)
-                        angezeigt. Dazu werden die 5 meistgehörten Genre der letzten Woche aufgelistet.</p>
-                </section>
 
-                <section id="info_GenresByWeather">
-                    <h2 class="title light">Top Genres nach Wetter</h2>
-                    <p class="text">In diesem Abschnitt werden die meistgehörten Genres der letzten Woche in Bezug auf das Wetter
-                        angezeigt. Dazu werden die Wetterdaten mit den gehörten Genres kombiniert und analysiert.</p>
-                </section>
-
-                <section id="info_GenreDevelopment">
-                    <h2 class="title light">Entwicklung Genre-Beliebtheit</h2>
-                    <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im Verhältnis zu
-                        den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die Wetter-Verhältnisse am
-                        jeweiligen Tag eingeblendet.</p>
-
-                </section>
-            </div>
-
-        </section>
-
-        <div id="weatherAndGenres" class="sidewrap" data-wrapper>
-            <!-- SPALTE 3A: Panel 1 (schmal, nur Titel sichtbar – Klick öffnet) -->
+        <!-- <div id="weatherAndGenres" class="sidewrap" data-wrapper>
+             SPALTE 3A: Panel 1 (schmal, nur Titel sichtbar – Klick öffnet)
             <section id="genresByWeather" class="card sidepanel" data-panel>
                 <h2>
                     <button class="sidepanel__trigger" aria-expanded="false" aria-controls="genresByWeatherContent">
@@ -101,19 +139,18 @@
                 </div>
             </section>
 
-            <!-- SPALTE 3B: Panel 2 -->
+         SPALTE 3B: Panel 2 
             <section id="genreDevelopment" class="card sidepanel" data-panel>
                 <h2>
                     <button class="sidepanel__trigger" aria-expanded="false" aria-controls="genreDevelopmentContent">
                         Entwicklung Genre-Beliebtheit
                     </button>
-                    <button class="sidepanel__close" type="button" aria-label="Schliessen" hidden>×</button>
                 </h2>
                 <div id="genreDevelopmentContent" class="sidepanel__content" hidden>
                     <canvas class="chart" id="genreDevelopmentChart"></canvas>
                 </div>
             </section>
-        </div>
+        </div> -->
 
     </main>
 
@@ -124,7 +161,7 @@
 
 
     <script type="module" src="js/script.js"></script>
-    <script type="module" src="js/second_script.js"></script>
+    <script type="module" src="js/third_script.js"></script>
 
 </body>
 
