@@ -4,6 +4,34 @@ const page = document.getElementById('page');
 const wrap = document.querySelector('[data-wrapper]');             // NEU
 const panels = [...document.querySelectorAll('[data-panel]')];
 
+// === Mobile-/Desktop-Logik ===
+const MOBILE_QUERY = window.matchMedia('(max-width: 768px)');
+const isMobile = () => MOBILE_QUERY.matches;
+
+function openPanel(panel) {
+  const btn = panel.querySelector('.sidepanel__trigger');
+  const cnt = panel.querySelector('.sidepanel__content');
+  const x   = panel.querySelector('.sidepanel__close');
+
+  panel.classList.add('--open');
+  if (btn) btn.setAttribute('aria-expanded', 'true');
+  if (cnt) cnt.hidden = false;
+  if (x)   x.hidden = false;
+}
+
+function closePanel(panel) {
+  const btn = panel.querySelector('.sidepanel__trigger');
+  const cnt = panel.querySelector('.sidepanel__content');
+  const x   = panel.querySelector('.sidepanel__close');
+
+  panel.classList.remove('--open');
+  if (btn) btn.setAttribute('aria-expanded', 'false');
+  if (cnt) cnt.hidden = true;
+  if (x)   x.hidden = true;
+}
+
+// Desktop
+
 function closeAll() {
     panels.forEach(p => {
         p.classList.remove('--open');
@@ -23,17 +51,23 @@ panels.forEach(panel => {
     const closeBtn = panel.querySelector('.sidepanel__close');        // NEU
     if (!btn || !content) return;
 
-    btn.addEventListener('click', () => {
-        const isOpen = panel.classList.contains('--open');
-        closeAll();
-        if (!isOpen) {
-            panel.classList.add('--open');
-            btn.setAttribute('aria-expanded', 'true');
-            content.hidden = false;
-            if (closeBtn) closeBtn.hidden = false;                        // NEU
-            page.classList.add('--expand');
-        }
-    });
+btn.addEventListener('click', () => {
+  if (isMobile()) {
+    // MOBILE: keine Aktion – Panels bleiben offen
+    return;
+  }
+
+  const isOpen = panel.classList.contains('--open');
+
+  // DESKTOP: Exklusiv öffnen (altes Verhalten)
+  closeAll();
+  if (!isOpen) {
+    openPanel(panel);
+    page.classList.add('--expand');
+  }
+});
+
+
 
     // NEU: Close-Button schliesst wieder in den ½-½ Zustand
     if (closeBtn) {
@@ -45,3 +79,25 @@ panels.forEach(panel => {
 });
 
 window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+function applyInitialState() {
+  if (isMobile()) {
+    // MOBILE: beide Panels offen & Close-Buttons ausblenden
+    panels.forEach(panel => {
+      openPanel(panel);
+      const closeBtn = panel.querySelector('.sidepanel__close');
+      if (closeBtn) closeBtn.style.display = 'none';
+    });
+    page.classList.remove('--expand');
+  } else {
+    // DESKTOP: normale Logik & Close-Buttons wieder anzeigen
+    panels.forEach(panel => {
+      const closeBtn = panel.querySelector('.sidepanel__close');
+      if (closeBtn) closeBtn.style.display = '';
+    });
+    closeAll();
+  }
+}
+
+applyInitialState();                                   // <-- sofort beim Laden öffnen
+MOBILE_QUERY.addEventListener('change', applyInitialState); // <-- bei Resize/Rotate neu anwenden
