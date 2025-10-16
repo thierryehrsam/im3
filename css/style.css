@@ -627,6 +627,7 @@ h2 {
     transform-origin: center;
     white-space: nowrap;
     user-select: none;
+    pointer-events: none;
 }
 
 /* Positionierung & Rotation */
@@ -841,18 +842,7 @@ h2 {
 
 }
 
-/* Grundzustand (geschlossen): OK, keine internen Klicks nötig */
-.side-box__text {
-    user-select: none;
-    pointer-events: none;
-}
-
 /* Offen: Inhalte müssen klickbar sein (Charts, Buttons, „×“) */
 .side-box.open .side-box__text {
     pointer-events: auto;
-}
-
-/* Label soll NIE Klicks abfangen */
-.side-box__label {
-    pointer-events: none;
 }
