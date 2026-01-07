@@ -482,20 +482,6 @@ h2 {
         margin-top: 1rem;
     }
 
-    .weatherIcon {
-        width: 60px;
-        height: 60px;
-        margin-right: 10px;
-    }
-
-    .weather-btn {
-        width: 60px;
-    }
-
-    .dayLabel {
-        font-size: 19px;
-    }
-
     /* Grid-Areas zuweisen */
     #info_methodik {
         background-color: transparent;
@@ -530,7 +516,6 @@ h2 {
         color: var(--color-dark);
     }
 
-
     html,
     body {
         height: 100%;
@@ -540,27 +525,6 @@ h2 {
         min-height: 100vh;
         display: grid;
         grid-template-rows: 10vh 80vh 10vh;
-    }
-
-    h1,
-    .logo {
-        font-size: 75px;
-    }
-
-    h2 {
-        font-size: 42px;
-    }
-
-    h3 {
-        font-size: 30px;
-    }
-
-    h4 {
-        font-size: 20px;
-    }
-
-    p {
-        font-size: 19px;
     }
 
     .info_header {
@@ -589,7 +553,6 @@ h2 {
     }
 
     .logo {
-        padding-top: 100px;
         margin: 0 auto;
         text-align: center;
     }
@@ -781,6 +744,44 @@ h2 {
 
     .wrap {
         position: relative;
+    }
+}
+
+@media (min-width: 1500px) {
+    .weatherIcon {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+    }
+
+    .weather-btn {
+        width: 60px;
+    }
+
+    .dayLabel {
+        font-size: 19px;
+    }
+
+    h1,
+    .logo {
+        font-size: 75px;
+        padding-top: 100px;
+    }
+
+    h2 {
+        font-size: 42px;
+    }
+
+    h3 {
+        font-size: 30px;
+    }
+
+    h4 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 19px;
     }
 }
 
