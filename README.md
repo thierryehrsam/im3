@@ -9,9 +9,6 @@
 ## Kurzbeschreibung des Projekts
 Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat. Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind die meistgehörten Genres pro Wetter und die tägliche Entwicklung von verschiedenen Genres aufrufbar.
 
-**Beispiel**
-Wenn es beispielsweise eine Woche lang sonnig ist, zeigt die Seite, ob in dieser Zeit vermehrt fröhliche oder energiegeladene Genres wie Pop oder Dance gehört wurden – im Vergleich zu Regenwochen, in denen ruhigere Genres dominieren könnten.
-
 **API's**
 - Open-Meteo API – liefert Wetterdaten (Temperatur, Niederschlag, etc.)
 - Last.fm API – liefert Musik-Trends und Top-Genres
@@ -26,45 +23,13 @@ Wenn es beispielsweise eine Woche lang sonnig ist, zeigt die Seite, ob in dieser
 **Hinweis / Coachinginputs**
 Mit Beni haben wir besprochen, dass wir die gespeicherten Daten möglichst einfach und minimalisitisch halten sollen, weshalb wir die meisten Daten nach dem Transform wieder verwerfen und nicht in unserer Datenbank speichern. Auch die Berechnung des Wetters haben wir auf Anweisung sehr stark vereinfacht.
 
----
-
 ## Learnings und Schwierigkeiten Beni 
 Das finden einer passenden Musik-API hat viel mehr Aufwand in Anspruch genommen als erwartet, da die gelieferten Daten meist zu komplex oder undurchsichtig aufgeteilt waren. Beim Erstellen der animierten, aufklappbaren Boxen mittels CSS und Javascript konnte ich (trotz anfänglichen Schwierigkeiten) einige neue Möglichkeiten von animierten Website-Elementen entdecken und erlernen.
 
 ## Learnings und Schwierigkeiten Thierry
+Mit PHP und damit der Backend-Logik hatte ich nicht so grosse Schwierigkeiten, weil ich bereits viel mit grösseren Datenmengen in meiner Zeit als Informatik gearbeitet hatte. Viel gelernt habe ich im Frontend. Besonders knifflig war es, dass die Seitenpanels nur im Desktop so angezeigt werden und auf Mobile untereinander nicht aufklappbar dargestellt werden. Dies hat für mich den grössten Teil ausgemacht und musste mit viel Logik und CSS gelöst werden. Eine grosse Hilfe war hier ChatGPT, mit dem ich schrittweise (zuerst nur als PoC) zur richtigen Lösung kam.
 
-
----
 ## Benutzte Ressourcen und Prompts 
 GitHub Copilot: Hat geholfen, einfache Strukturaufgaben zu übernehmen und bei kleineren Darstellungsfehlern unterstützt.
 
-ChatGPT: Wurde eingesetzt, um komplexere Themen und Probleme aufzuzeigen, verständlich zu erklären und um Lösungsvorschläge zu erarbeiten.
-
----
-
-## Anforderungen
-Kurzbeschreibung des Projekts mit folgenden Themen:
-- Kurzbeschreibung des Projekts (max. 500 Zeichen)
-- Learnings und Schwierigkeiten (max. 200 Zeichen pro Person)
-- benutzte Ressourcen und Prompts
-
-**Bewertungsraster Technik**
-Punkte für Prozesserfüllung
-- API wird abgerufen (extract) (3)
-- Daten werden transformiert (transform → bereinigt, aggregiert, generiert) (3)
-- Daten werden in eigene Datenbank geschrieben (load) (3)
-- Daten werden aus eigener Datenbank gelesen (unload) (3)
-- DOM wird dynamisch manipuliert (2)
-- Daten werden in geeigneten Datenformat dargestellt (2)
-- Datenvisualisierung erstellt (2)
-
-Punkte für Codequalität
-- HTML, CSS valide (1)
-- Responsive (3)
-- Javascript und PHP logisch strukturiert (3)
-- Javascript und PHP Effizienz (Schleifen und Variablen clever eingesetzt) (3)
-- Wiederverwendbarkeit (Funktionen mit Variablen Übergabe) (2)
-- Datenbank logisch aufgebaut (2)
-- Verbindungen zur Datenbank gesichert (2)
-
-
+ChatGPT: Wurde eingesetzt, um komplexere Themen und Probleme aufzuzeigen, verständlich zu erklären und um Lösungsvorschläge zu erarbeiten. Bei komplexeren Dingen musste Schritt für Schritt vorgegangen werden, da es immer noch Mühe hat, grosse Probleme auf einmal zu lösen. Aber wenn man nach und nach die Komplexität steigerte, war es ein enorm nützliches Tool. 
