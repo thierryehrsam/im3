@@ -555,6 +555,7 @@ h2 {
     .logo {
         margin: 0 auto;
         text-align: center;
+        padding-top: 50px;
     }
 
     .logo:hover {
@@ -747,7 +748,7 @@ h2 {
     }
 }
 
-@media (min-width: 1500px) {
+@media (min-width: 1750px) {
     .weatherIcon {
         width: 60px;
         height: 60px;
@@ -786,7 +787,7 @@ h2 {
 }
 
 /*Für grosse Displays*/
-@media (min-width: 2200px) {
+@media (min-width: 2500px) {
 
     h1,
     .logo {
