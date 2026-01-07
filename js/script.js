@@ -149,11 +149,11 @@ renderTopGenres(top_genres_last_week);
 function getDynamicAspectRatio() {
     const width = window.innerWidth;
 
-    if (width <= 600) return 0.75;
+    if (width <= 600) return 0.9;
     if (width >= 2000) return 1.75;
 
-    // Linear interpolieren (zwischen 0.75 und 1.5)
-    const ratio = 0.75 + ((width - 600) / (2000 - 600)) * (1.75 - 0.75);
+    // Linear interpolieren (zwischen 0.75 und 1.75)
+    const ratio = 0.75 + ((width - 600) / (2000 - 600)) * (1.75 - 0.9);
     return ratio;
 }
 

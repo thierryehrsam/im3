@@ -675,29 +675,27 @@ h2 {
 
 /* 📱 Mobile Layout */
 @media (max-width: 767px) {
-    body {
+    /* body {
         display: flex;
         flex-direction: column;
         align-items: center;
         background: #f7f8fb;
         padding: 20px;
-    }
+    } */
 
     .wrap {
         all: unset;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 16px;
         width: 100%;
-        max-width: 360px;
     }
 
     .main-box,
     .side-box {
         position: static;
         width: 100%;
-        height: var(--main-h);
+        height: 15%;
         border-radius: var(--radius);
         transition: none;
         cursor: default;
@@ -717,7 +715,7 @@ h2 {
 
     .side-box.top,
     .side-box.bottom {
-        height: calc(var(--main-h) * 1.1);
+        height: 90%;
     }
 }
 
@@ -790,6 +788,7 @@ h2 {
         display: flex;
         justify-content: center;
         align-items: center;
+        width: 100%;
     }
 
     .logo {
