@@ -7,15 +7,12 @@
  ---
 
 ## Kurzbeschreibung des Projekts
-
-Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat. Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.
+Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat. Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind die meistgehörten Genres pro Wetter und die tägliche Entwicklung von verschiedenen Genres aufrufbar.
 
 **Beispiel**
-
 Wenn es beispielsweise eine Woche lang sonnig ist, zeigt die Seite, ob in dieser Zeit vermehrt fröhliche oder energiegeladene Genres wie Pop oder Dance gehört wurden – im Vergleich zu Regenwochen, in denen ruhigere Genres dominieren könnten.
 
 **API's**
-
 - Open-Meteo API – liefert Wetterdaten (Temperatur, Niederschlag, etc.)
 - Last.fm API – liefert Musik-Trends und Top-Genres
 - Eigene Datenbank – speichert und aggregiert die API-Daten
@@ -32,7 +29,7 @@ Mit Beni haben wir besprochen, dass wir die gespeicherten Daten möglichst einfa
 ---
 
 ## Learnings und Schwierigkeiten Beni 
-
+Das finden einer passenden Musik-API hat viel mehr Aufwand in Anspruch genommen als erwartet, da die gelieferten Daten meist zu komplex oder undurchsichtig aufgeteilt waren. Beim Erstellen der animierten, aufklappbaren Boxen mittels CSS und Javascript konnte ich (trotz anfänglichen Schwierigkeiten) einige neue Möglichkeiten von animierten Website-Elementen entdecken und erlernen.
 
 ## Learnings und Schwierigkeiten Thierry
 

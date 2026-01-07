@@ -36,17 +36,34 @@
         <div class="wrap">
             <section class="main-box">
                 <h2>So funktioniert's</h2>
-                <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten Musikgenres hat.
-                    Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten daraus
-                    die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres. Ebenfalls sind
+                <p class="text">Diese Seite untersucht, ob das Wetter in der Schweiz Einfluss auf die gehörten
+                    Musikgenres hat.
+                    Dafür kombinieren wir Wetterdaten von Open-Meteo mit den beliebtesten Artists von Last.fm und leiten
+                    daraus
+                    die meistgehörten Genres ab. Jede Woche zeigen wir das Wetter im Vergleich zu den Top-Genres.
+                    Ebenfalls sind
                     die meistgehörten Genres pro Wetter und die Entwicklung von verschiedenen Genres aufrufbar.</p>
                 <a href="info.html" class="button">Weitere Infos</a>
 
                 <div class="detailinfo">
                     <section id="info_methodik">
                         <h2 class="third">Methodik</h2>
-                        <p class="text">Zum Zeitpunkt der Abgabe des UX sind die Methodik zur Datenerhebung und die genauen Berechnungen
-                            noch nicht definiert. In diesem Bereich würde dies zur Nachvollziehbarkeit im Detail beschrieben werden.</p>
+                        <p class="text">Die Daten werden in einem mehrstufigen ETL-Prozess (Extract, Transform, Load)
+                            verarbeitet. Zuerst werden mithilfe von PHP-Skripten aktuelle Wetterdaten über die
+                            Open-Meteo-API sowie Musikdaten über die Last.fm-API abgerufen. Dabei liefern die
+                            Extract-Skripte Rohdaten zu Temperatur, Wetterlage, Top-Tracks, Artists und den
+                            dazugehörigen Genre-Tags. Anschliessend werden diese Daten in mehreren
+                            Transformationsschritten bereinigt und vereinheitlicht: Die Wetterdaten werden nach Datum
+                            und Temperatur aggregiert und erhalten zusätzlich eine Wetterkategorie wie «sonnig» oder
+                            «bewölkt». Bei den Musikdaten werden die häufigsten Genre-Tags extrahiert, auf eine
+                            festgelegte Genreliste gemappt und in ein einheitliches Format gebracht.
+                            <br><br>
+                            Nach der Umwandlung werden die bereinigten Datensätze in eine eigene Datenbank geladen. Dort
+                            werden sie fortlaufend gespeichert, sodass sich mit der Zeit ein verlaufsorientierter
+                            Datensatz bildet. Das Frontend greift anschliessend nicht direkt auf die APIs zu, sondern
+                            ruft die gespeicherten Daten aus der Datenbank ab. Dadurch können auf der Website Trends und
+                            Zusammenhänge zwischen Wetter und Musik über mehrere Wochen hinweg zuverlässig visualisiert
+                            und analysiert werden.</p>
                     </section>
 
                     <section id="info_weatherLastWeek">
@@ -57,14 +74,18 @@
 
                     <section id="info_GenresByWeather">
                         <h2 class="light">Top Genres nach Wetter</h2>
-                        <p class="text">In diesem Abschnitt werden die meistgehörten Genres der letzten Woche in Bezug auf das Wetter
-                            angezeigt. Dazu werden die Wetterdaten mit den gehörten Genres kombiniert und analysiert.</p>
+                        <p class="text">In diesem Abschnitt werden die meistgehörten Genres der letzten Woche in Bezug
+                            auf das Wetter
+                            angezeigt. Dazu werden die Wetterdaten mit den gehörten Genres kombiniert und analysiert.
+                        </p>
                     </section>
 
                     <section id="info_GenreDevelopment">
                         <h2 class="light">Entwicklung Genre-Beliebtheit</h2>
-                        <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im Verhältnis zu
-                            den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die Wetter-Verhältnisse am
+                        <p class="text">In diesem Abschnitt ist die Entwicklung des Anteils eines bestimmten Genres, im
+                            Verhältnis zu
+                            den anderen Genres ersichtlich. Beim Hover über einen Datenpunkt werden zudem die
+                            Wetter-Verhältnisse am
                             jeweiligen Tag eingeblendet.</p>
 
                     </section>
