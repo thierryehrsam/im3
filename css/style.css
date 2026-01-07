@@ -16,15 +16,13 @@
     --color-lila: #8D6DFF;
     --color-background-grey: #CCBFD0;
     --color-dark-grey: #242424;
-    --main-w: 300px;
-    --main-h: 200px;
-    --collapsed: 0.2;
     --gap: 24px;
     --border-radius: 16px;
     --dur-move: 400ms;
     --dur-scale: 400ms;
     --ease: cubic-bezier(.25, .8, .25, 1);
 }
+
 
 body {
     font-family: 'League Gothic';
@@ -58,10 +56,10 @@ body {
 header {
     position: sticky;
     top: 0;
-    height: 10%;
     margin-top: 0px;
     z-index: 100;
     padding: 20px;
+    background-color: #350043ee;
 }
 
 header a {
@@ -79,7 +77,6 @@ header a {
         0 0 15px rgba(255, 25, 231, 0.2),
         0 0 25px rgba(255, 25, 231, 0.1);
     animation: flicker 3s infinite;
-    /* langsamer und ruhiger */
 }
 
 .logo:hover {
@@ -93,7 +90,6 @@ header a {
         0 0 15px rgba(255, 25, 231, 0.2),
         0 0 25px rgba(255, 25, 231, 0.1);
     animation: flicker 3s infinite;
-    /* langsamer und ruhiger */
 }
 
 #top5LastWeek {
@@ -122,7 +118,7 @@ header a {
 footer {
     color: var(--color-light);
     text-align: center;
-    padding: 10px;
+    padding: 20px;
     width: 100%;
     background-image: url(../images/audiowave_h.png);
     background-size: contain;
@@ -155,6 +151,7 @@ h2 {
     padding: 5px 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    display: inline-block;
 }
 
 .detailinfo section {
@@ -204,39 +201,10 @@ h2 {
     24%,
     55% {
         opacity: 0.85;
-        /* statt 0.6 – nicht ganz aus */
         text-shadow:
             0 0 2px rgba(255, 25, 231, 0.4),
             0 0 5px rgba(255, 25, 231, 0.3);
     }
-}
-
-/* ====== Layout für Desktop-Grid ====== */
-:root {
-    --gap: 1.2rem;
-    --side-collapsed: 88px;
-}
-
-.page {
-    display: grid;
-    gap: var(--gap);
-    grid-template-columns: 1.5fr 2.2fr;
-    grid-template-areas: "left middle right";
-    /* <— nur EINE Zeile */
-    grid-template-rows: auto;
-    /* <— explizit eine Reihe */
-    align-items: stretch;
-    /* Panels dürfen die Reihe ausfüllen */
-    transition: grid-template-columns .35s ease;
-    /* optionaler Innenabstand */
-}
-
-#weatherAndGenres {
-    grid-area: right;
-}
-
-#top5LastWeek {
-    grid-area: left;
 }
 
 /* Der Wrapper füllt die volle Höhe der rechten Spalte und teilt sie 1/1 */
@@ -248,7 +216,10 @@ h2 {
     align-self: stretch;
     /* füllt die Höhe der einzigen Page-Reihe */
     min-height: 0;
-    /* <— wichtig gegen „Aufblasen“ */
+}
+
+.sidepanel__close {
+    display: none;
 }
 
 /* Rechte Spalte: standardmässig schmal, nur Titel sichtbar */
@@ -258,33 +229,11 @@ h2 {
     align-items: stretch;
     position: relative;
     overflow: hidden;
-    /* keep */
     min-height: 0;
 }
 
 .sidepanel h2 {
-    /* remove default margins so the rail is tight */
     margin: 0;
-}
-
-.sidepanel__trigger {
-    inline-size: 100%;
-    block-size: 100%;
-    /* ← fill full height of its half-column */
-    display: flex;
-    /* center the text */
-    align-items: center;
-    justify-content: center;
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
-    background: none;
-    border: 0;
-    color: inherit;
-    /* uses each panel’s color */
-    font: inherit;
-    cursor: pointer;
-    padding: 0;
-    /* no internal padding → maximum legibility */
 }
 
 .sidepanel__content {
@@ -293,154 +242,12 @@ h2 {
     transition: max-height .35s ease;
 }
 
-/* Close-Button oben rechts – nur bei geöffnetem Panel sichtbar */
-.sidepanel__close {
-    position: absolute;
-    top: .5rem;
-    right: .5rem;
-    background: none;
-    border: 0;
-    font-size: 1.5rem;
-    line-height: 1;
-    cursor: pointer;
-    opacity: .8;
-}
-
-.sidepanel.--open {
-    padding-top: 0;
-    grid-row: 1 / -1;
-    /* spannt von oberster bis unterster Zeile */
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    display: flex;
-    flex-direction: column;
-}
-
-/* Wenn ein Panel geöffnet wird: Mitte verschwindet, rechte Spalte wird breit */
-/* Mitte weg, rechte Spalte wird breit */
-.page.--expand {
-    grid-template-columns: 1.5fr 0fr 2.4fr;
-}
-
-.page.--expand #info {
-    display: none;
-}
-
-/* Wrapper spannt auf die Spalten 2–3 */
-.page.--expand #weatherAndGenres {
-    grid-column: 2 / 4;
-}
-
-.sidepanel.--open h2 {
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    margin: 0;
-    padding: .5rem 2rem .75rem .25rem;
-    /* Platz im Header */
-    background: inherit;
-}
-
-
-.sidepanel.--open .sidepanel__trigger {
-    position: static;
-    display: inline-flex;
-    block-size: auto !important;
-    /* überschreibt evtl. alte 100%-Höhen */
-    align-items: center;
-    justify-content: flex-start;
-    writing-mode: horizontal-tb;
-    transform: none;
-    padding: 0;
-    position: static;
-    display: inline-flex;
-    block-size: auto !important;
-    /* überschreibt evtl. alte 100%-Höhen */
-    align-items: center;
-    justify-content: flex-start;
-    writing-mode: horizontal-tb;
-    transform: none;
-    padding: 0;
-}
-
-.sidepanel.--open .sidepanel__content {
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: auto;
-    max-height: none;
-    /* überschreibt deine 100vh-Begrenzung */
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: auto;
-    max-height: none;
-    /* überschreibt deine 100vh-Begrenzung */
-}
-
-.sidepanel.--open .sidepanel__close {
-    display: block;
-}
-
-/* Die nicht aktive Kachel im Expand-Zustand ausblenden */
-.page.--expand .sidewrap>.sidepanel:not(.--open) {
-    display: none;
-}
-
-/* Mobile bleibt wie gehabt (Stack) */
-@media (max-width: 768px) {
-    .page {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "left"
-            "middle"
-            "right";
-    }
-
-    .sidepanel__trigger {
-        writing-mode: horizontal-tb;
-        transform: none;
-    }
-
-    .page.--expand {
-        grid-template-columns: 1fr;
-    }
-
-    .page.--expand #info {
-        display: block;
-    }
-
-    /* Info bleibt auf Mobile sichtbar */
-    .page.--expand #weatherAndGenres {
-        grid-column: auto;
-    }
-
-    .sidepanel.--open {
-        grid-row: auto;
-    }
-
-    /* kein Über-Spannen nötig auf Mobile */
-    .page.--expand .sidewrap>.sidepanel:not(.--open) {
-        display: block;
-    }
-
-    header {
-        background-color: #350043ee;
-    }
-}
-
-/* Mobile-Default: Button sichtbar, Detailinfos versteckt */
 .detailinfo {
     display: none;
 }
 
-.button {
-    display: inline-block;
-}
-
-
 .chart-tooltip {
     position: absolute;
-    pointer-events: none;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -551,6 +358,9 @@ h2 {
 
 .weather-btn img {
     transition: 0.2s ease;
+    width: 100%;
+    height: auto;
+    overflow: visible;
 }
 
 .weather-btn:hover img {
@@ -561,96 +371,50 @@ h2 {
     filter: drop-shadow(0 0 10px var(--color-light));
 }
 
-.weather-btn img {
-    width: 100%;
-    height: auto;
-    pointer-events: none;
-    overflow: visible;
-}
-
-
 .wrap {
-    position: relative;
+    all: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
 }
 
-/* Hauptbox */
+.main-box,
+.side-box {
+    position: static;
+    width: 100%;
+    transition: none;
+    cursor: default;
+}
+
 .main-box {
-    position: absolute;
-    left: 0;
-    top: 0;
-    border-radius: var(--border-radius);
     z-index: 1;
     background-color: var(--color-light);
     color: var(--color-dark);
     padding: 20px;
-    height: 100%;
-    width: 87%;
+    height: 20%;
 }
 
-/* Seitenboxen */
 .side-box {
-    position: absolute;
-    left: calc(87% + var(--gap));
-    width: 80px;
-    height: 49%;
-    border-radius: var(--border-radius);
-    color: #fff;
-    cursor: pointer;
-    overflow: hidden;
-    transition:
-        left var(--dur-move) var(--ease),
-        width var(--dur-move) var(--ease),
-        height var(--dur-scale) var(--ease),
-        border-radius var(--dur-scale) var(--ease);
-    z-index: 3;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    overflow: hidden;
+    height: 100%;
 }
 
-/* Normaler Text (sichtbar, wenn offen) */
 .side-box__text {
-    opacity: 0;
+    opacity: 1;
     transition: opacity 250ms ease;
     text-align: center;
     padding: 16px;
     user-select: none;
-    pointer-events: none;
-}
-
-.side-box.show-text .side-box__text {
-    opacity: 1;
-}
-
-/* Vertikaler Titel (sichtbar, wenn geschlossen) */
-.side-box__label {
-    position: absolute;
-    transition: opacity 300ms ease;
-    transform-origin: center;
-    white-space: nowrap;
-    user-select: none;
-    pointer-events: none;
 }
 
 /* Positionierung & Rotation */
 .side-box__label.vertical {
-    /* innerhalb der side-box zentrieren */
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    writing-mode: vertical-rl;
-    /* Text vertikal setzen */
-    transform: rotate(180deg);
-    /* Lesrichtung von unten nach oben korrigieren */
-    pointer-events: none;
-    /* Klicks gehen an die Box, nicht den Text */
+    display: none;
 }
 
-/* Wenn Box offen → Label ausblenden */
-.side-box.open .side-box__label {
-    opacity: 0;
-}
-
-/* Farben */
 .side-box.top {
     background: var(--color-third);
     top: 0;
@@ -661,67 +425,42 @@ h2 {
     bottom: 0;
 }
 
-/* Animation Desktop */
-.side-box.open.move {
-    left: 0;
-    width: 87%;
-}
-
-.side-box.open.expand-top,
-.side-box.open.expand-bottom {
-    height: 100%;
-    border-radius: var(--border-radius);
-}
-
-/* 📱 Mobile Layout */
-@media (max-width: 767px) {
-    /* body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: #f7f8fb;
-        padding: 20px;
-    } */
-
-    .wrap {
-        all: unset;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    .main-box,
-    .side-box {
-        position: static;
-        width: 100%;
-        height: 15%;
-        border-radius: var(--radius);
-        transition: none;
-        cursor: default;
-    }
-
-    .side-box {
-        pointer-events: none;
-    }
-
-    .side-box__text {
-        opacity: 1;
-    }
-
-    .side-box__label {
-        display: none;
-    }
-
-    .side-box.top,
-    .side-box.bottom {
-        height: 90%;
-    }
+.info_section {
+    padding: 20px;
 }
 
 /* Desktop: Detailinfos sichtbar, zweispaltig wie im Screen */
 @media (min-width: 992px) {
-    .button {
+
+    :root {
+        --gap: 1.2rem;
+    }
+
+    .page {
+        display: grid;
+        gap: var(--gap);
+        grid-template-columns: 1.5fr 2.2fr;
+        grid-template-areas: "left middle right";
+        grid-template-rows: auto;
+        align-items: stretch;
+        transition: grid-template-columns .35s ease;
+    }
+
+    /* Wenn ein Panel geöffnet wird: Mitte verschwindet, rechte Spalte wird breit */
+    .page.--expand {
+        grid-template-columns: 1.5fr 0fr 2.4fr;
+    }
+
+    .page.--expand #info {
+        display: none;
+    }
+
+    .page.--expand #weatherAndGenres {
+        grid-column: 2 / 4;
+    }
+
+    /* Die nicht aktive Kachel im Expand-Zustand ausblenden */
+    .page.--expand .sidewrap>.sidepanel:not(.--open) {
         display: none;
     }
 
@@ -729,8 +468,9 @@ h2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-template-areas:
+            "methodik wetter"
             "methodik genres"
-            "wetter   entwicklung";
+            "methodik entwicklung";
         gap: var(--gap);
         margin-top: 1rem;
     }
@@ -756,7 +496,6 @@ h2 {
         grid-area: entwicklung;
     }
 
-    /* Optional: In der Info-Box einheitlicher Look (entfernt farbige Hintergründe der Unterblöcke) */
     .detailinfo section {
         background: transparent;
         padding: 0;
@@ -776,12 +515,18 @@ h2 {
         height: 100%;
     }
 
-    /* wichtig für vh-Layout */
     body {
         min-height: 100vh;
         display: grid;
         grid-template-rows: 10vh 80vh 10vh;
-        /* Header / Main / Footer */
+    }
+
+    #weatherAndGenres {
+        grid-area: right;
+    }
+
+    #top5LastWeek {
+        grid-area: left;
     }
 
     header {
@@ -789,6 +534,8 @@ h2 {
         justify-content: center;
         align-items: center;
         width: 100%;
+        background-color: transparent;
+        height: 10%;
     }
 
     .logo {
@@ -808,16 +555,12 @@ h2 {
             0 0 15px rgba(25, 228, 255, 0.2),
             0 0 25px rgba(25, 205, 255, 0.1);
         animation: flicker 3s infinite;
-        /* langsamer und ruhiger */
     }
 
     main.page {
         height: 100%;
-        /* füllt die 80vh-Zeile komplett */
         overflow: hidden;
-        /* verhindert, dass Inhalte die 80vh sprengen */
         align-items: stretch;
-        /* sichert, dass Spalten die Höhe mitgehen */
     }
 
     /* rechter Wrapper soll die volle Main-Höhe nutzen und halb/halb teilen */
@@ -829,6 +572,50 @@ h2 {
         /* kein Aufblasen */
     }
 
+    /* Hauptbox */
+    .main-box {
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: var(--border-radius);
+        height: 100%;
+        width: 87%;
+    }
+
+    .button {
+        display: none;
+    }
+
+    .side-box {
+        position: absolute;
+        left: calc(87% + var(--gap));
+        width: 80px;
+        height: 49%;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition:
+            left var(--dur-move) var(--ease),
+            width var(--dur-move) var(--ease),
+            height var(--dur-scale) var(--ease),
+            border-radius var(--dur-scale) var(--ease);
+    }
+
+    .sidepanel__trigger {
+        inline-size: 100%;
+        block-size: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        background: none;
+        border: 0;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        padding: 0;
+    }
+
     /* Panels dürfen schrumpfen und scrollen intern bei Bedarf */
     .sidepanel {
         min-height: 0;
@@ -838,10 +625,118 @@ h2 {
         overflow: auto;
     }
 
+    .side-box__text {
+        opacity: 0;
+    }
 
-}
+    /* Vertikaler Titel (sichtbar, wenn geschlossen) */
+    .side-box__label {
+        position: absolute;
+        transition: opacity 300ms ease;
+        transform-origin: center;
+        white-space: nowrap;
+        user-select: none;
+    }
 
-/* Offen: Inhalte müssen klickbar sein (Charts, Buttons, „×“) */
-.side-box.open .side-box__text {
-    pointer-events: auto;
+    /* Animation Desktop */
+    .side-box.open.move {
+        left: 0;
+        width: 87%;
+    }
+
+    .side-box.open.expand-top,
+    .side-box.open.expand-bottom {
+        height: 100%;
+        border-radius: var(--border-radius);
+    }
+
+    .side-box.open .side-box__label {
+        opacity: 0;
+    }
+
+    /* Positionierung & Rotation */
+    .side-box__label.vertical {
+        /* innerhalb der side-box zentrieren */
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        pointer-events: none;
+        /* Klicks gehen an die Box, nicht den Text */
+    }
+
+    .side-box.show-text .side-box__text {
+        opacity: 1;
+    }
+
+    .side-box:not(.open) .side-box__label,
+    .side-box:not(.open) .side-box__text {
+        pointer-events: none;
+    }
+
+    /* Close-Button oben rechts – nur bei geöffnetem Panel sichtbar */
+    .sidepanel__close {
+        display: block;
+        position: absolute;
+        top: .75rem;
+        right: .75rem;
+        background: none;
+        border: 0;
+        font-size: 4rem;
+        line-height: 1;
+        cursor: pointer;
+        color: var(--color-light);
+        opacity: 0.9;
+        transition:
+            transform 0.2s ease,
+            filter 0.2s ease,
+            opacity 0.2s ease;
+    }
+
+    .sidepanel__close:hover {
+        opacity: 1;
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 6px var(--color-light)) drop-shadow(0 0 12px rgba(255, 25, 231, 0.6));
+    }
+
+    .sidepanel.--open {
+        padding-top: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidepanel.--open h2 {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        margin: 0;
+        padding: .5rem 2rem .75rem .25rem;
+        background: inherit;
+    }
+
+
+    .sidepanel.--open .sidepanel__trigger {
+        position: static;
+        display: inline-flex;
+        block-size: auto !important;
+        align-items: center;
+        justify-content: flex-start;
+        writing-mode: horizontal-tb;
+        transform: none;
+        padding: 0;
+    }
+
+    .sidepanel.--open .sidepanel__content {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+        max-height: none;
+    }
+
+    .wrap {
+        position: relative;
+    }
 }

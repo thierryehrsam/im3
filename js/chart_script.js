@@ -4,10 +4,9 @@ const top_genres_last_week_url = unload_url + "top_genres_last_week.php";
 const top_genres_per_weather_url = unload_url + "top_genres_per_weather.php";
 const unique_dates_url = unload_url + "unique_dates.php";
 const weather_last_week_url = unload_url + "weather_last_week.php";
+const weatherButtons = document.querySelectorAll('.weather-btn');
 
-const color_dark = "#340043";
-
-// Plugin für Chart.js, das bei leeren Datensätzen "Keine Daten verfügbar" anzeigt
+// Für Chart.js, das bei leeren Datensätzen "Keine Daten verfügbar" anzeigt
 Chart.register({
     id: 'noDataMessage',
     afterDraw(chart) {
@@ -88,18 +87,11 @@ async function loadData(url) {
     }
 }
 
-const genres_with_weather_data = await loadData(genres_with_weather_data_url);
-const top_genres_last_week = await loadData(top_genres_last_week_url);
-const top_genres_per_weather = await loadData(top_genres_per_weather_url);
-const unique_dates = await loadData(unique_dates_url);
-const weather_last_week = await loadData(weather_last_week_url);
-const filtered_dates = unique_dates.slice(0, -1);
-let datasets = [];
 
 function renderTopGenres(genres) {
     const container = document.getElementById("topGenresLastWeek");
 
-    genres.forEach((genre, index) => {
+    genres.forEach(genre => {
         const li = document.createElement("li");
         // das <li> selbst behält die Schriftart von .topNumber
 
@@ -143,22 +135,40 @@ function renderWeatherLastWeek(data) {
 }
 
 
-renderWeatherLastWeek(weather_last_week);
-renderTopGenres(top_genres_last_week);
+function clamp(n, min, max) {
+    return Math.max(min, Math.min(max, n));
+}
 
-function getDynamicAspectRatio() {
-    const width = window.innerWidth;
+function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+}
 
-    if (width <= 600) return 0.9;
-    if (width >= 2000) return 1.75;
+function getDynamicAspectRatio(minR) {
+    const w = window.innerWidth;
 
-    // Linear interpolieren (zwischen 0.75 und 1.75)
-    const ratio = 0.75 + ((width - 600) / (2000 - 600)) * (1.75 - 0.9);
-    return ratio;
+    // Diese zwei Werte bestimmen, WANN die Kurve startet/endet:
+    const minW = 390;   // ab hier beginnt es spürbar zu steigen (Mobile)
+    const maxW = 1200;  // ab hier ist es praktisch "Desktop fix"
+
+    const maxR = 2.25;  // Desktop
+
+    const t = clamp((w - minW) / (maxW - minW), 0, 1);
+    const eased = easeOutCubic(t);
+
+    return minR + eased * (maxR - minR);
+}
+
+function getPointRadius() {
+    const w = window.innerWidth;
+    if (w < 480) return 1.5;   // Mobile
+    if (w < 900) return 2.5;   // Tablet
+    return 5;                  // Desktop
 }
 
 
 function generateGenresWithWeatherDataChart() {
+    let datasets = [];
+
     genres_with_weather_data.forEach((genre) => {
         const wetterMap = new Map(genre.weather_data.map(w => [w.datum, w]));
 
@@ -171,8 +181,8 @@ function generateGenresWithWeatherDataChart() {
             borderColor: darkenHexColor(genre.color),
             backgroundColor: genre.color + '90',
             pointStyle: 'circle',
-            pointRadius: 5,
-            pointHoverRadius: 7,
+            pointRadius: getPointRadius(),
+            pointHoverRadius: getPointRadius() + 1.5,
             wetterInfos: wetterInfos
         });
     });
@@ -189,7 +199,7 @@ function generateGenresWithWeatherDataChart() {
         data,
         options: {
             responsive: true,
-            aspectRatio: getDynamicAspectRatio(),
+            aspectRatio: getDynamicAspectRatio(0.7),
             plugins: {
                 legend: { position: 'top' },
                 title: { display: true, text: 'Wetterdaten' },
@@ -275,7 +285,7 @@ function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather.fi
         data: data,
         options: {
             responsive: true,
-            aspectRatio: getDynamicAspectRatio(),
+            aspectRatio: getDynamicAspectRatio(0.9),
             indexAxis: "y",
             plugins: {
                 legend: {
@@ -291,9 +301,6 @@ function generateTopGenresPerWeatherChart(top_genres = top_genres_per_weather.fi
 
     return config;
 }
-
-let topGenresChart = new Chart(document.querySelector("#topGenresPerWeatherChart"), generateTopGenresPerWeatherChart());
-let genreDevelopmentChart = new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
 
 function updateTopGenresPerWeatherChart(weatherCode) {
     // Beispiel: die passenden Daten aus deinem Array holen
@@ -320,13 +327,21 @@ function updateTopGenresPerWeatherChart(weatherCode) {
     topGenresChart.update();
 }
 
+const genres_with_weather_data = await loadData(genres_with_weather_data_url);
+const top_genres_last_week = await loadData(top_genres_last_week_url);
+const top_genres_per_weather = await loadData(top_genres_per_weather_url);
+const unique_dates = await loadData(unique_dates_url);
+const weather_last_week = await loadData(weather_last_week_url);
+const filtered_dates = unique_dates.slice(0, -1);
+renderWeatherLastWeek(weather_last_week);
+renderTopGenres(top_genres_last_week);
 
-const weatherButtons = document.querySelectorAll('.weather-btn');
+let topGenresChart = new Chart(document.querySelector("#topGenresPerWeatherChart"), generateTopGenresPerWeatherChart());
+let genreDevelopmentChart = new Chart(document.querySelector("#genreDevelopmentChart"), generateGenresWithWeatherDataChart());
 
 weatherButtons.forEach(btn => {
     const weatherType = btn.dataset.weather;
     btn.addEventListener('click', () => {
-        console.log(`Klick auf: ${weatherType}`);
         updateTopGenresPerWeatherChart(weatherType);
         weatherButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -334,11 +349,12 @@ weatherButtons.forEach(btn => {
     });
 });
 
-window.addEventListener('resize', () => {
-    const newRatio = getDynamicAspectRatio();
-    topGenresChart.options.aspectRatio = newRatio;
-    topGenresChart.update();
+function updateChartRatios() {
+    topGenresChart.options.aspectRatio = getDynamicAspectRatio(0.9);
+    genreDevelopmentChart.options.aspectRatio = getDynamicAspectRatio(0.7);
 
-    genreDevelopmentChart.options.aspectRatio = newRatio;
+    topGenresChart.update();
     genreDevelopmentChart.update();
-});
+}
+
+window.addEventListener('resize', updateChartRatios);
