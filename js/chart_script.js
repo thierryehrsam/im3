@@ -143,14 +143,12 @@ function easeOutCubic(t) {
     return 1 - Math.pow(1 - t, 3);
 }
 
-function getDynamicAspectRatio(minR) {
+function getDynamicAspectRatio(minR, maxR = 2.25) {
     const w = window.innerWidth;
 
     // Diese zwei Werte bestimmen, WANN die Kurve startet/endet:
     const minW = 390;   // ab hier beginnt es spürbar zu steigen (Mobile)
     const maxW = 1200;  // ab hier ist es praktisch "Desktop fix"
-
-    const maxR = 2.25;  // Desktop
 
     const t = clamp((w - minW) / (maxW - minW), 0, 1);
     const eased = easeOutCubic(t);
@@ -161,8 +159,8 @@ function getDynamicAspectRatio(minR) {
 function getPointRadius() {
     const w = window.innerWidth;
     if (w < 480) return 1.5;   // Mobile
-    if (w < 900) return 2.5;   // Tablet
-    return 5;                  // Desktop
+    if (w < 900) return 2.25;   // Tablet
+    return 4;                  // Desktop
 }
 
 
@@ -199,7 +197,7 @@ function generateGenresWithWeatherDataChart() {
         data,
         options: {
             responsive: true,
-            aspectRatio: getDynamicAspectRatio(0.7),
+            aspectRatio: getDynamicAspectRatio(0.7, 1.75),
             plugins: {
                 legend: { position: 'top' },
                 title: { display: true, text: 'Wetterdaten' },

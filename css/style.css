@@ -435,6 +435,7 @@ h2 {
 
 /* Desktop: Detailinfos sichtbar, zweispaltig wie im Screen */
 @media (min-width: 992px) {
+
     :root {
         --gap: 1.2rem;
     }
@@ -472,40 +473,20 @@ h2 {
     }
 
     .detailinfo {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-areas:
-            "methodik wetter"
-            "methodik genres"
-            "methodik entwicklung";
-        gap: var(--gap);
+        display: block;
+        column-count: 2;
+        column-gap: calc(var(--gap) * 1.5);
         margin-top: 1rem;
     }
 
-    /* Grid-Areas zuweisen */
-    #info_methodik {
-        background-color: transparent;
-        grid-area: methodik;
-    }
-
-    #info_GenresByWeather {
-        background-color: transparent;
-        grid-area: genres;
-    }
-
-    #info_weatherLastWeek {
-        background-color: transparent;
-        grid-area: wetter;
-    }
-
-    #info_GenreDevelopment {
-        background-color: transparent;
-        grid-area: entwicklung;
-    }
-
     .detailinfo section {
-        background: transparent;
+        break-inside: avoid;
+        background: transparent !important;
         padding: 0;
+    }
+
+    #info_methodik {
+        break-inside: auto;
     }
 
     .detailinfo section h2 {
@@ -514,6 +495,7 @@ h2 {
 
     p {
         color: var(--color-dark);
+        line-height: 1.1;
     }
 
     html,
